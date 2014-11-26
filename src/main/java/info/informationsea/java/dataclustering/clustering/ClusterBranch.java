@@ -41,7 +41,7 @@ public class ClusterBranch implements ClusterNode {
 
     @Override
     public String toString() {
-        return String.format("Branch[\n%s\n%s]\n", m_left.toString(), m_right.toString());
+        return String.format("Branch[\n%s\n%s]", m_left.toString(), m_right.toString());
     }
 
     @Override
