@@ -29,7 +29,7 @@ abstract public class AbstractMatrix<T> implements Matrix<T>{
         for (int i = 0; i < size[0]; i++) {
             sb.append(String.format("[%d] ", i));
             for (int j = 0; j < size[1]; j++) {
-                sb.append(at(i, j).toString());
+                sb.append(get(i, j).toString());
                 if (j != size[1] - 1)
                     sb.append(", ");
             }

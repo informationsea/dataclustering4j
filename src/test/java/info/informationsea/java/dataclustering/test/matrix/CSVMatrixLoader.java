@@ -20,11 +20,8 @@ package info.informationsea.java.dataclustering.test.matrix;
 
 import au.com.bytecode.opencsv.CSVReader;
 import info.informationsea.java.dataclustering.matrix.DefaultMutableMatrix;
-import org.junit.Assert;
-import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 
@@ -46,7 +43,7 @@ public class CSVMatrixLoader {
         for (int i = 0; i < rows.size(); ++i) {
             String[] oneRow = rows.get(i);
             for (int j = 0; j < oneRow.length; ++j) {
-                m.set(i, j, Double.valueOf(oneRow[j]));
+                m.put(i, j, Double.valueOf(oneRow[j]));
             }
         }
 

@@ -32,7 +32,7 @@ public class DoubleIdentityMatrix extends AbstractMatrix<Double> implements Matr
     }
 
     @Override
-    public Double at(int row, int col) {
+    public Double get(int row, int col) {
         if (row == col) {
             return 1.0;
         }

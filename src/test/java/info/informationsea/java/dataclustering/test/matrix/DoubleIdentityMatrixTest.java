@@ -21,7 +21,6 @@ package info.informationsea.java.dataclustering.test.matrix;
 import info.informationsea.java.dataclustering.matrix.DoubleIdentityMatrix;
 import info.informationsea.java.dataclustering.matrix.Matrix;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Assert;
 
@@ -42,8 +41,8 @@ public class DoubleIdentityMatrixTest {
 
     @Test
     public void testAt() {
-        Assert.assertEquals(0.0, m.at(0, 1), 0);
-        Assert.assertEquals(1.0, m.at(2, 2), 0);
+        Assert.assertEquals(0.0, m.get(0, 1), 0);
+        Assert.assertEquals(1.0, m.get(2, 2), 0);
     }
 
     @Test

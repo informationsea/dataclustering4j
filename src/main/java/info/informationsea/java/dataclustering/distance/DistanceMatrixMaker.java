@@ -30,7 +30,7 @@ public class DistanceMatrixMaker<T> {
 
         for (int i = 0; i < nrow; ++i) {
             for (int j = i+1; j < nrow; ++j) {
-                m.set(i, j, distance.distance(matrix.getRow(i), matrix.getRow(j)));
+                m.put(i, j, distance.distance(matrix.getRow(i), matrix.getRow(j)));
             }
         }
 

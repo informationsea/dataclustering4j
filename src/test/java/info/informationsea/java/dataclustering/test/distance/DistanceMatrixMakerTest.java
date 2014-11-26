@@ -28,15 +28,15 @@ public class DistanceMatrixMakerTest {
     @Test
     public void testDistanceMatrixMaker() {
         DefaultMutableMatrix<Double> m = new DefaultMutableMatrix<Double>(3, 2, 0.0);
-        m.set(1, 1, 1.0);
-        m.set(2, 0, 1.0);
+        m.put(1, 1, 1.0);
+        m.put(2, 0, 1.0);
         //System.err.println(m.toString());
         DistanceMatrixMaker.DistanceMatrix dm = new DistanceMatrixMaker<Double>().
                 matrixDistance(m, new DoubleEuclidDistance());
 
-        Assert.assertEquals(Double.valueOf(0.0), dm.at(0, 0));
-        Assert.assertEquals(Double.valueOf(1.0), dm.at(0, 1));
-        Assert.assertEquals(Double.valueOf(1.0), dm.at(0, 2));
-        Assert.assertEquals(Double.valueOf(Math.sqrt(2)), dm.at(1, 2));
+        Assert.assertEquals(Double.valueOf(0.0), dm.get(0, 0));
+        Assert.assertEquals(Double.valueOf(1.0), dm.get(0, 1));
+        Assert.assertEquals(Double.valueOf(1.0), dm.get(0, 2));
+        Assert.assertEquals(Double.valueOf(Math.sqrt(2)), dm.get(1, 2));
     }
 }

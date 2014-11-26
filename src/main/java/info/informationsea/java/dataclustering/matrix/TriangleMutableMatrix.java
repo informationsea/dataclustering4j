@@ -40,7 +40,7 @@ public class TriangleMutableMatrix<T> extends AbstractMatrix<T> implements Mutab
     }
 
     @Override
-    public void set(int row, int col, T value) {
+    public void put(int row, int col, T value) {
         if (row < col) {
             m_matrix[col][row] = value;
         } else {
@@ -54,7 +54,7 @@ public class TriangleMutableMatrix<T> extends AbstractMatrix<T> implements Mutab
     }
 
     @Override
-    public T at(int row, int col) {
+    public T get(int row, int col) {
         if (row < col) {
             return (T)m_matrix[col][row];
         } else {

@@ -20,7 +20,7 @@ package info.informationsea.java.dataclustering.matrix;
 
 public interface Matrix<T> {
     public int[] getSize();
-    T at(int row, int col);
+    T get(int row, int col);
     Object[] getRow(int row);
     T[] getRow(T[] array, int row);
     Matrix<T> transpose();

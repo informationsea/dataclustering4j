@@ -28,21 +28,21 @@ public class TriangleMutableMatrixTest {
     @Test
     public void testAt() {
         TriangleMutableMatrix<Integer> tmm = new TriangleMutableMatrix<Integer>(4, 1);
-        Assert.assertEquals(Integer.valueOf(1), tmm.at(1, 3));
+        Assert.assertEquals(Integer.valueOf(1), tmm.get(1, 3));
     }
 
     @Test
     public void testSetAndAt() {
         TriangleMutableMatrix<Integer> tmm = new TriangleMutableMatrix<Integer>(4, 1);
-        tmm.set(1, 1, 10);
-        tmm.set(1, 2, 3);
-        tmm.set(3, 1, 9);
+        tmm.put(1, 1, 10);
+        tmm.put(1, 2, 3);
+        tmm.put(3, 1, 9);
 
-        Assert.assertEquals(Integer.valueOf(10), tmm.at(1, 1));
-        Assert.assertEquals(Integer.valueOf(3), tmm.at(1, 2));
-        Assert.assertEquals(Integer.valueOf(9), tmm.at(3, 1));
-        Assert.assertEquals(Integer.valueOf(3), tmm.at(2, 1));
-        Assert.assertEquals(Integer.valueOf(9), tmm.at(1, 3));
+        Assert.assertEquals(Integer.valueOf(10), tmm.get(1, 1));
+        Assert.assertEquals(Integer.valueOf(3), tmm.get(1, 2));
+        Assert.assertEquals(Integer.valueOf(9), tmm.get(3, 1));
+        Assert.assertEquals(Integer.valueOf(3), tmm.get(2, 1));
+        Assert.assertEquals(Integer.valueOf(9), tmm.get(1, 3));
     }
 
     @Test
@@ -54,29 +54,29 @@ public class TriangleMutableMatrixTest {
     @Test
     public void testTranspose() {
         TriangleMutableMatrix<Integer> tmm = new TriangleMutableMatrix<Integer>(4, 1);
-        tmm.set(1, 1, 10);
-        tmm.set(1, 2, 3);
-        tmm.set(3, 1, 9);
+        tmm.put(1, 1, 10);
+        tmm.put(1, 2, 3);
+        tmm.put(3, 1, 9);
 
         Matrix<Integer> t = tmm.transpose();
-        Assert.assertEquals(Integer.valueOf(10), t.at(1, 1));
-        Assert.assertEquals(Integer.valueOf(3), t.at(1, 2));
-        Assert.assertEquals(Integer.valueOf(9), t.at(3, 1));
-        Assert.assertEquals(Integer.valueOf(3), t.at(2, 1));
-        Assert.assertEquals(Integer.valueOf(9), t.at(1, 3));
+        Assert.assertEquals(Integer.valueOf(10), t.get(1, 1));
+        Assert.assertEquals(Integer.valueOf(3), t.get(1, 2));
+        Assert.assertEquals(Integer.valueOf(9), t.get(3, 1));
+        Assert.assertEquals(Integer.valueOf(3), t.get(2, 1));
+        Assert.assertEquals(Integer.valueOf(9), t.get(1, 3));
     }
 
     @Test
     public void testEqual() {
         TriangleMutableMatrix<Integer> tmm1 = new TriangleMutableMatrix<Integer>(4, 1);
-        tmm1.set(1, 1, 10);
-        tmm1.set(1, 2, 3);
-        tmm1.set(3, 1, 9);
+        tmm1.put(1, 1, 10);
+        tmm1.put(1, 2, 3);
+        tmm1.put(3, 1, 9);
 
         TriangleMutableMatrix<Integer> tmm2 = new TriangleMutableMatrix<Integer>(4, 1);
-        tmm2.set(1, 1, 10);
-        tmm2.set(2, 1, 3);
-        tmm2.set(1, 3, 9);
+        tmm2.put(1, 1, 10);
+        tmm2.put(2, 1, 3);
+        tmm2.put(1, 3, 9);
 
         TriangleMutableMatrix<Integer> tmm3 = new TriangleMutableMatrix<Integer>(4, 0);
         TriangleMutableMatrix<Integer> tmm4 = new TriangleMutableMatrix<Integer>(3, 1);
@@ -91,9 +91,9 @@ public class TriangleMutableMatrixTest {
     @Test
     public void testGetRow() {
         TriangleMutableMatrix<Integer> tmm1 = new TriangleMutableMatrix<Integer>(4, 1);
-        tmm1.set(1, 1, 10);
-        tmm1.set(1, 2, 3);
-        tmm1.set(3, 1, 9);
+        tmm1.put(1, 1, 10);
+        tmm1.put(1, 2, 3);
+        tmm1.put(3, 1, 9);
 
         Integer[] correctRow = new Integer[]{1, 10, 3, 9};
         //printArrayHelper(tmm1.getRow(2));

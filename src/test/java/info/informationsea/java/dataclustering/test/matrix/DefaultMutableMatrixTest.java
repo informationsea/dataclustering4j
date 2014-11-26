@@ -33,32 +33,32 @@ public class DefaultMutableMatrixTest {
     public void testConstructor() {
         DoubleIdentityMatrix idm = new DoubleIdentityMatrix(2);
         DefaultMutableMatrix<Double> dmmd = new DefaultMutableMatrix<Double>(idm);
-        Assert.assertEquals(Double.valueOf(1), dmmd.at(0, 0));
-        Assert.assertEquals(Double.valueOf(0), dmmd.at(1, 0));
-        Assert.assertEquals(Double.valueOf(0), dmmd.at(0, 1));
-        Assert.assertEquals(Double.valueOf(1), dmmd.at(1, 1));
+        Assert.assertEquals(Double.valueOf(1), dmmd.get(0, 0));
+        Assert.assertEquals(Double.valueOf(0), dmmd.get(1, 0));
+        Assert.assertEquals(Double.valueOf(0), dmmd.get(0, 1));
+        Assert.assertEquals(Double.valueOf(1), dmmd.get(1, 1));
     }
 
     @Test
     public void testAt() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
-        Assert.assertEquals(m1.at(2, 4), Integer.valueOf(0));
+        Assert.assertEquals(m1.get(2, 4), Integer.valueOf(0));
     }
 
     @Test
     public void testSet() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
-        m1.set(2, 4, 1);
-        Assert.assertEquals(m1.at(2, 4), Integer.valueOf(1));
-        Assert.assertEquals(m1.at(2, 3), Integer.valueOf(0));
-        Assert.assertEquals(m1.at(4, 2), Integer.valueOf(0));
+        m1.put(2, 4, 1);
+        Assert.assertEquals(m1.get(2, 4), Integer.valueOf(1));
+        Assert.assertEquals(m1.get(2, 3), Integer.valueOf(0));
+        Assert.assertEquals(m1.get(4, 2), Integer.valueOf(0));
     }
 
     @Test
     public void testGetRow() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
-        m1.set(3, 0, 1);
-        m1.set(3, 3, 6);
+        m1.put(3, 0, 1);
+        m1.put(3, 3, 6);
 
         Integer[] correct1 = new Integer[]{1, 0, 0, 6, 0, 0};
         Integer[] correct2 = new Integer[]{0, 0, 0, 0, 0, 0};
@@ -79,20 +79,20 @@ public class DefaultMutableMatrixTest {
     @Test
     public void testTranspose() {
         DefaultMutableMatrix<Integer> m = new DefaultMutableMatrix<Integer>(2, 3, 0);
-        m.set(0, 2, 1);
-        m.set(1, 0, 2);
+        m.put(0, 2, 1);
+        m.put(1, 0, 2);
         Matrix<Integer> t = m.transpose();
         Assert.assertArrayEquals(new int[]{3, 2}, t.getSize());
-        Assert.assertEquals(Integer.valueOf(1), t.at(2, 0));
-        Assert.assertEquals(Integer.valueOf(2), t.at(0, 1));
+        Assert.assertEquals(Integer.valueOf(1), t.get(2, 0));
+        Assert.assertEquals(Integer.valueOf(2), t.get(0, 1));
         Assert.assertEquals(t.transpose(), m);
     }
 
     @Test
     public void testEqual() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(2, 3, 0);
-        m1.set(0, 2, 1);
-        m1.set(1, 0, 2);
+        m1.put(0, 2, 1);
+        m1.put(1, 0, 2);
         DefaultMutableMatrix<Integer> m2 = new DefaultMutableMatrix<Integer>(2, 3, 0);
         DefaultMutableMatrix<Integer> m3 = new DefaultMutableMatrix<Integer>(2, 2, 1);
         DefaultMutableMatrix<Integer> m4 = new DefaultMutableMatrix<Integer>(2, 2, 1);
@@ -109,8 +109,8 @@ public class DefaultMutableMatrixTest {
     @Test
     public void testToString() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(2, 3, 0);
-        m1.set(0, 2, 1);
-        m1.set(1, 0, 2);
+        m1.put(0, 2, 1);
+        m1.put(1, 0, 2);
         String value = m1.toString();
         String expected = "Matrix[info.informationsea.java.dataclustering.matrix.DefaultMutableMatrix]\n" +
                 "[0] 0, 0, 1\n" +
@@ -121,8 +121,8 @@ public class DefaultMutableMatrixTest {
     @Test
     public void testDoubleLoader() throws IOException {
         DefaultMutableMatrix<Double> m = CSVMatrixLoader.loadDoubleMatrix(new InputStreamReader(CSVMatrixLoader.class.getResourceAsStream("../matrix1.csv")));
-        Assert.assertEquals(Double.valueOf(0), m.at(0, 0));
-        Assert.assertEquals(Double.valueOf(1), m.at(1, 0));
-        Assert.assertEquals(Double.valueOf(0.5), m.at(2, 1));
+        Assert.assertEquals(Double.valueOf(0), m.get(0, 0));
+        Assert.assertEquals(Double.valueOf(1), m.get(1, 0));
+        Assert.assertEquals(Double.valueOf(0.5), m.get(2, 1));
     }
 }

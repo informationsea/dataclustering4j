@@ -33,7 +33,7 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
         initialize(original.getSize()[0], original.getSize()[1], null);
         for (int i = 0; i < m_nrow; ++i) {
             for (int j = 0; j < m_ncol; ++j) {
-                m_matrix[i][j] = original.at(i, j);
+                m_matrix[i][j] = original.get(i, j);
             }
         }
     }
@@ -52,7 +52,7 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
     }
 
     @Override
-    public void set(int row, int col, T value) {
+    public void put(int row, int col, T value) {
         m_matrix[row][col] = value;
     }
 
@@ -62,7 +62,7 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
     }
 
     @Override
-    public T at(int row, int col) {
+    public T get(int row, int col) {
         return (T)m_matrix[row][col];
     }
 

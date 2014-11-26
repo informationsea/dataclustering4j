@@ -19,5 +19,5 @@
 package info.informationsea.java.dataclustering.matrix;
 
 public interface MutableMatrix<T> extends Matrix<T> {
-    void set(int row, int col, T value);
+    void put(int row, int col, T value);
 }

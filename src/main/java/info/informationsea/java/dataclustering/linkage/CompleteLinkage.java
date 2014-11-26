@@ -28,7 +28,7 @@ public class CompleteLinkage implements Linkage {
 
         for(Integer i: node1.leafIndexes()) {
             for (Integer j:node2.leafIndexes()) {
-                maxvalue = Math.max(distanceMatrix.at(i, j), maxvalue);
+                maxvalue = Math.max(distanceMatrix.get(i, j), maxvalue);
             }
         }
         return maxvalue;
