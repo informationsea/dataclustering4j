@@ -1,0 +1,31 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+
+// apply plugin: 'jacoco'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'us.kirchmeier:gradle-capsule-plugin:0.10.0'
+    }
+}
+
+apply plugin: 'us.kirchmeier.capsule'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile project(":dataclustering4j-core")
+    compile project(":dataclustering4j-csvloader")
+}
+
+task fatCapsule(type: FatCapsule) {
+    applicationClass 'info.informationsea.java.dataclustering.example.ClusteringExample'
+}
+

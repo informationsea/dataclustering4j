@@ -26,13 +26,11 @@ import info.informationsea.java.dataclustering.distance.DistanceMatrixMaker;
 import info.informationsea.java.dataclustering.distance.DoubleEuclidDistance;
 import info.informationsea.java.dataclustering.linkage.CompleteLinkage;
 import info.informationsea.java.dataclustering.matrix.DefaultMutableMatrix;
-import info.informationsea.java.dataclustering.test.matrix.CSVMatrixLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class ClusteringTest {
     private DefaultMutableMatrix<Double> original;
@@ -40,7 +38,7 @@ public class ClusteringTest {
 
     @Before
     public void setUp() throws IOException {
-        original = CSVMatrixLoader.loadDoubleMatrix(new InputStreamReader(CSVMatrixLoader.class.getResourceAsStream("../matrix1.csv")));
+        original = new DefaultMutableMatrix<Double>(new Double[]{0., 0., 1., 0., 1., 0.5, 1., 3., 1.0, 4.0, 1.5, 3.0}, 2);
         distanceMatrix = new DistanceMatrixMaker<Double>().matrixDistance(original, new DoubleEuclidDistance());
     }
 

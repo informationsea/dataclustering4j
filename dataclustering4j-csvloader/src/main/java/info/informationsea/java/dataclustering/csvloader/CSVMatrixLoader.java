@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package info.informationsea.java.dataclustering.test.matrix;
+package info.informationsea.java.dataclustering.csvloader;
 
 import au.com.bytecode.opencsv.CSVReader;
 import info.informationsea.java.dataclustering.matrix.DefaultMutableMatrix;

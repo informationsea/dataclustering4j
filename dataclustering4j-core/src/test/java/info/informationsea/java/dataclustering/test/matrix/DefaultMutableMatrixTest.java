@@ -40,6 +40,17 @@ public class DefaultMutableMatrixTest {
     }
 
     @Test
+    public void testConstructor2() {
+        boolean exceptionCatched = false;
+        try {
+            DefaultMutableMatrix<Double> dmmd = new DefaultMutableMatrix<Double>(new Double[]{1., 2., 3.}, 2);
+        } catch (IllegalArgumentException iiae) {
+            exceptionCatched = true;
+        }
+        Assert.assertTrue(exceptionCatched);
+    }
+
+    @Test
     public void testAt() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
         Assert.assertEquals(m1.get(2, 4), Integer.valueOf(0));
@@ -118,11 +129,4 @@ public class DefaultMutableMatrixTest {
         Assert.assertEquals(expected, value);
     }
 
-    @Test
-    public void testDoubleLoader() throws IOException {
-        DefaultMutableMatrix<Double> m = CSVMatrixLoader.loadDoubleMatrix(new InputStreamReader(CSVMatrixLoader.class.getResourceAsStream("../matrix1.csv")));
-        Assert.assertEquals(Double.valueOf(0), m.get(0, 0));
-        Assert.assertEquals(Double.valueOf(1), m.get(1, 0));
-        Assert.assertEquals(Double.valueOf(0.5), m.get(2, 1));
-    }
 }

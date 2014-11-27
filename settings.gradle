@@ -1,1 +1,1 @@
-include "dataclustering4j-core"
+include "dataclustering4j-core", "dataclustering4j-csvloader", "dataclustering4j-example"

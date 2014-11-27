@@ -38,6 +38,18 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
         }
     }
 
+    public DefaultMutableMatrix(T[] values, int ncol) {
+        if (values.length % ncol != 0)
+            throw new IllegalArgumentException("length of values should be able to divided by ncol");
+        initialize(values.length/ncol, ncol, null);
+
+        for (int i = 0; i < values.length; ++i) {
+            int row = i/ncol;
+            int col = i%ncol;
+            m_matrix[row][col] = values[i];
+        }
+    }
+
     private void initialize(int nrow, int ncol, T defaultValue) {
         m_nrow = nrow;
         m_ncol = ncol;
