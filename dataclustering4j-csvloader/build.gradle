@@ -3,6 +3,7 @@ apply plugin: 'java'
 sourceCompatibility = 1.6
 
 apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
@@ -15,5 +16,24 @@ dependencies {
 }
 
 task testAndReport(dependsOn: [test, jacocoTestReport]) << {
-    println "OK"
+
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'info.informationsea.java.dataclustering4j'
+            artifactId 'dataclustering4j-csvloader'
+            version "$version"
+
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url "$buildDir/repo"
+        }
+    }
 }
