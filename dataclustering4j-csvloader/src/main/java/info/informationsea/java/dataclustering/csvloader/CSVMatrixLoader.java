@@ -31,14 +31,14 @@ public class CSVMatrixLoader {
     public static DefaultMutableMatrix<Double> loadDoubleMatrix(Reader reader) throws IOException{
         CSVReader csvReader = new CSVReader(reader);
         ArrayList<String[]> rows = new ArrayList<String[]>();
-        int maximumColmuns = 0;
+        int maximumColumn = 0;
         String[] line;
         while ((line = csvReader.readNext()) != null) {
             rows.add(line);
-            maximumColmuns = Math.max(maximumColmuns, line.length);
+            maximumColumn = Math.max(maximumColumn, line.length);
         }
 
-        DefaultMutableMatrix<Double> m = new DefaultMutableMatrix<Double>(rows.size(), maximumColmuns, 0.0);
+        DefaultMutableMatrix<Double> m = new DefaultMutableMatrix<Double>(rows.size(), maximumColumn, 0.0);
 
         for (int i = 0; i < rows.size(); ++i) {
             String[] oneRow = rows.get(i);
