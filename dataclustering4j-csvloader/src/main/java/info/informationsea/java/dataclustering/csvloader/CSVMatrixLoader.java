@@ -19,6 +19,7 @@
 package info.informationsea.java.dataclustering.csvloader;
 
 import au.com.bytecode.opencsv.CSVReader;
+import info.informationsea.java.dataclustering.matrix.DefaultLabeledMutableMatrix;
 import info.informationsea.java.dataclustering.matrix.DefaultMutableMatrix;
 
 import java.io.IOException;
@@ -49,4 +50,51 @@ public class CSVMatrixLoader {
 
         return m;
     }
+
+    public static DefaultLabeledMutableMatrix<Double, String, String> loadDoubleMatrixWithLabel(Reader reader) throws IOException{
+        CSVReader csvReader = new CSVReader(reader);
+        ArrayList<String[]> rows = new ArrayList<String[]>();
+        int maximumColumn = 0;
+        String[] line;
+        while ((line = csvReader.readNext()) != null) {
+            rows.add(line);
+            maximumColumn = Math.max(maximumColumn, line.length);
+        }
+
+        DefaultLabeledMutableMatrix<Double, String, String> m = new DefaultLabeledMutableMatrix<Double, String, String>(rows.size()-1, maximumColumn-1, 0.0);
+
+        for (int i = 1; i < rows.size(); ++i) {
+            String[] oneRow = rows.get(i);
+            for (int j = 1; j < oneRow.length; ++j) {
+                m.put(i-1, j-1, Double.valueOf(oneRow[j]));
+            }
+        }
+
+        if (rows.get(0).length == maximumColumn) {
+            String[] header = new String[maximumColumn-1];
+            System.arraycopy(rows.get(0), 1, header, 0, maximumColumn-1);
+            m.setColumnKeys(header);
+        } else if (rows.get(0).length == maximumColumn-1) {
+            m.setColumnKeys(rows.get(0));
+        } else {
+            throw new RuntimeException("Illegal number of column names");
+        }
+
+        String[] rownames = new String[rows.size()-1];
+        {
+            int i = 0;
+            for (String[] onerow:rows) {
+                if (i == 0) {
+                    i += 1;
+                    continue;
+                }
+                rownames[i-1] = onerow[0];
+                i += 1;
+            }
+        }
+        m.setRowKeys(rownames);
+
+        return m;
+    }
+
 }
