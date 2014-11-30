@@ -51,19 +51,21 @@ public class DefaultMutableMatrixTest {
     }
 
     @Test
-    public void testAt() {
+    public void testGet() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
         Assert.assertEquals(m1.get(2, 4), Integer.valueOf(0));
     }
 
     @Test
-    public void testSet() {
+    public void testPut() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
         m1.put(2, 4, 1);
         Assert.assertEquals(m1.get(2, 4), Integer.valueOf(1));
         Assert.assertEquals(m1.get(2, 3), Integer.valueOf(0));
         Assert.assertEquals(m1.get(4, 2), Integer.valueOf(0));
     }
+
+
 
     @Test
     public void testGetRow() {
