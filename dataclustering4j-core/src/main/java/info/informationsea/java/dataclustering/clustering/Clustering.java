@@ -23,10 +23,21 @@ import info.informationsea.java.dataclustering.linkage.Linkage;
 
 import java.util.ArrayList;
 
+/**
+ * Main class of dataclustering4j
+ *
+ */
 public class Clustering {
 
     private Clustering(){}
 
+    /**
+     * Do hierarchical clustering
+     *
+     * @param distanceMatrix A matrix of distances between items
+     * @param linkage Linkage method
+     * @return The result of hierarchical clustering
+     */
     public static ClusterNode doClustering(DistanceMatrixMaker.DistanceMatrix distanceMatrix, Linkage linkage) {
         ArrayList<ClusterNode> currentNodes = new ArrayList<ClusterNode>();
         int itemSize = distanceMatrix.getSize()[0];

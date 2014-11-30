@@ -19,5 +19,13 @@
 package info.informationsea.java.dataclustering.distance;
 
 public interface Distance {
+    /**
+     * Calculate a distance of two vectors. Because of a technical reason,
+     * two vectors must be array of {@literal Object}
+     *
+     * @param a Array of items 1.
+     * @param b Array of items 2.
+     * @return a distance of two vectors
+     */
     public double distance(Object[] a, Object[] b);
 }

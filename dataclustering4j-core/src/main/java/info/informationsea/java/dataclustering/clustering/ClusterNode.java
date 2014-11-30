@@ -20,7 +20,19 @@ package info.informationsea.java.dataclustering.clustering;
 
 import java.util.Set;
 
+/**
+ * Represents a result of hierarchical clustering
+ */
 public interface ClusterNode {
+    /**
+     * Return all indexes belonged to this node
+     * @return all indexes of leaves
+     */
     public Set<Integer> leafIndexes();
+
+    /**
+     * Return direct children of this node
+     * @return return children of this node
+     */
     public ClusterNode[] getChildren();
 }
