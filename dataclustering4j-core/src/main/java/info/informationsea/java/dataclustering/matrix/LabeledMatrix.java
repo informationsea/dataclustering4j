@@ -18,7 +18,7 @@
 
 package info.informationsea.java.dataclustering.matrix;
 
-public interface LabeledMatrix<T, R, C> extends Matrix<T> {
+public interface LabeledMatrix<T, R, C> extends MutableMatrix<T> {
     /**
      *
      * @param rowKeys array of row names
