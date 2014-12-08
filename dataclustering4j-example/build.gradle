@@ -26,6 +26,6 @@ dependencies {
 }
 
 task fatCapsule(type: FatCapsule) {
-    applicationClass 'info.informationsea.java.dataclustering.example.ClusteringExample'
+    applicationClass 'info.informationsea.dataclustering4j.example.ClusteringExample'
 }
 
