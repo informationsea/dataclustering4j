@@ -2,7 +2,6 @@ package info.informationsea.dataclustering4j.test.matrix;
 
 import info.informationsea.dataclustering4j.matrix.DefaultLabeledMutableMatrix;
 import info.informationsea.dataclustering4j.matrix.LabeledMappedMatrix;
-import info.informationsea.dataclustering4j.matrix.LabeledMatrix;
 import info.informationsea.dataclustering4j.matrix.MappedMatrix;
 import org.junit.Assert;
 import org.junit.Before;
