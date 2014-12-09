@@ -18,6 +18,12 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+/**
+ * Labeled Triangle Matrix implementation.
+ * Please refer {@link info.informationsea.dataclustering4j.matrix.TriangleMutableMatrix} to learn more.
+ * @param <T> a type of values
+ * @param <K> a key type of rows and columns
+ */
 public class LabeledTriangleMutableMatrix<T, K> extends TriangleMutableMatrix<T> implements LabeledMatrix<T, K, K> {
 
     AbstractMutableLabeledMatrix.MutableLabeledMatrixProxy<T, K, K> m_proxy =

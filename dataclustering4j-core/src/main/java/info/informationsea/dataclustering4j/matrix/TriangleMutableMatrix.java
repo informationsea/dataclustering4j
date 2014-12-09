@@ -18,6 +18,11 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+/**
+ * A triangle matrix.
+ * This class implement a triangle matrix such as a distance matrix.
+ * @param <T> a type of values
+ */
 public class TriangleMutableMatrix<T> extends AbstractMatrix<T> implements MutableMatrix<T> {
     int m_size;
 

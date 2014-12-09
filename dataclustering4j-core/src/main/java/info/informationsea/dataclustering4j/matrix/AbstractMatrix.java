@@ -18,7 +18,16 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+/**
+ * An implementation of common methods in {@link Matrix}
+ * @param <T> type of values
+ */
 abstract public class AbstractMatrix<T> implements Matrix<T>{
+
+    /**
+     * Get human readable representation of matrix
+     * @return human friendly string
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

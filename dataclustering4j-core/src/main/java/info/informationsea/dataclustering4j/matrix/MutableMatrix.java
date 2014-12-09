@@ -18,6 +18,17 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+/**
+ * Value changeable matrix interface
+ * @param <T> type of values
+ */
 public interface MutableMatrix<T> extends Matrix<T> {
+
+    /**
+     * put new value to {@code row}, {@code col}
+     * @param row row index
+     * @param col column index
+     * @param value a value to set
+     */
     void put(int row, int col, T value);
 }

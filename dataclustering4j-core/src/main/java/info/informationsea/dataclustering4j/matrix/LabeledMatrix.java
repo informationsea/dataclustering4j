@@ -18,18 +18,50 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+/**
+ * A matrix with row and column labels.
+ * @param <T> type of values
+ * @param <R> type of row keys
+ * @param <C> type of column keys
+ */
 public interface LabeledMatrix<T, R, C> extends MutableMatrix<T> {
     /**
-     *
+     * set new keys for the row
      * @param rowKeys array of row names
      */
     public void setRowKeys(R[] rowKeys);
+
+    /**
+     * set new keys for the column
+     * @param columnKeys array of column names
+     */
     public void setColumnKeys(C[] columnKeys);
 
-
+    /**
+     * get keys for the row
+     * @return a row key array
+     */
     public R[] getRowKeys();
+
+    /**
+     * get keys for the column
+     * @return a column key array
+     */
     public C[] getColumnKeys();
 
+    /**
+     * get a value corresponding to {@code row} and {@code column}
+     * @param row a key of the row
+     * @param column a key of the column
+     * @return a corresponding value
+     */
     public T get(R row, C column);
+
+    /**
+     * put a new value for {@code row} and {@code column}
+     * @param row a key of the row
+     * @param column a key of the column
+     * @param value a new value
+     */
     public void put(R row, C column, T value);
 }

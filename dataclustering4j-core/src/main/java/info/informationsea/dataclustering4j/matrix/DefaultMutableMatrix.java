@@ -18,6 +18,10 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+/**
+ * A default implementation of mutable matrix
+ * @param <T> a type of values
+ */
 public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements MutableMatrix<T> {
 
     int m_nrow;
@@ -26,10 +30,10 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
     Object[][] m_matrix;
 
     /**
-     *
-     * @param nrow number of row
-     * @param ncol number of column
-     * @param defaultValue default value of matrix
+     * New matrix with numbers of row and column, and a default value
+     * @param nrow a number of row
+     * @param ncol a number of column
+     * @param defaultValue a default value of matrix
      */
     public DefaultMutableMatrix(int nrow, int ncol, T defaultValue) {
         initialize(nrow, ncol, defaultValue);
@@ -48,6 +52,12 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
         }
     }
 
+    /**
+     * New matrix with default values and a number of column.
+     * A number of row is calculated from a length of {@code values} and {@code ncol}
+     * @param values a default values
+     * @param ncol a number of column
+     */
     public DefaultMutableMatrix(T[] values, int ncol) {
         if (values.length % ncol != 0)
             throw new IllegalArgumentException("length of values should be able to divided by ncol");
@@ -60,6 +70,14 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
         }
     }
 
+    /**
+     * Make subset of a supplied matrix
+     * @param parent parent matrix
+     * @param top a minimum row index of parent matrix to copy.
+     * @param bottom a maximum row index+1 of parent matrix to copy.
+     * @param left a minimum column index of parent matrix to copy.
+     * @param right a maximum column index+1 of parent matrix to copy.
+     */
     public DefaultMutableMatrix(Matrix<T> parent, int top, int bottom, int left, int right) {
         initialize(bottom - top, right - left, parent.get(top, left));
         for (int i = 0; i < (bottom - top); ++i) {

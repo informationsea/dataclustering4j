@@ -20,6 +20,12 @@ package info.informationsea.dataclustering4j.matrix;
 
 import java.util.HashMap;
 
+/**
+ * An implementation of common methods in {@link LabeledMatrix}
+ * @param <T> type of values
+ * @param <R> type of row keys
+ * @param <C> type of column keys
+ */
 abstract public class AbstractMutableLabeledMatrix<T, R, C> extends AbstractMatrix<T> implements LabeledMatrix<T, R, C>, MutableMatrix<T>  {
 
     private R[] m_rowKeys = null;
@@ -86,10 +92,20 @@ abstract public class AbstractMutableLabeledMatrix<T, R, C> extends AbstractMatr
         put(m_rowKeyMap.get(row), m_columnKeyMap.get(column), value);
     }
 
+    /**
+     * A proxy class to mixin LabeledMatrix to a existing matrix class
+     * @param <T> type of values
+     * @param <R> type of row keys
+     * @param <C> type of column keys
+     */
     public static class MutableLabeledMatrixProxy<T, R, C> extends AbstractMutableLabeledMatrix<T, R, C>{
 
         private MutableMatrix<T> m_parent;
 
+        /**
+         * Set parent object of a proxy class
+         * @param parent parent object
+         */
         public MutableLabeledMatrixProxy(MutableMatrix<T> parent) {
             m_parent = parent;
         }
