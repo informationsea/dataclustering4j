@@ -23,10 +23,6 @@ task testAndReport(dependsOn: [test, jacocoTestReport]) << {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId 'info.informationsea.dataclustering4j'
-            artifactId 'dataclustering4j-csvloader'
-            version "$version"
-
             from components.java
         }
     }

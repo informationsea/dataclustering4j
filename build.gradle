@@ -1,3 +1,4 @@
 subprojects {
-    version = "0.0.2"
+    group = 'info.informationsea.dataclustering4j'
+    version = "0.0.3"
 }
