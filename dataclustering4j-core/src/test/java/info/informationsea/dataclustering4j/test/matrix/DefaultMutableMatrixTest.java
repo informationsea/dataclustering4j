@@ -50,6 +50,14 @@ public class DefaultMutableMatrixTest {
     @Test
     public void testConstructor3() {
         DefaultMutableMatrix<Integer> dmmi = new DefaultMutableMatrix<Integer>(new Integer[]{1, 2, 3, 4, 5, 6}, 3);
+        Assert.assertEquals(1, dmmi.get(0, 0), 0);
+        Assert.assertEquals(2, dmmi.get(0, 1), 0);
+        Assert.assertEquals(3, dmmi.get(0, 2), 0);
+        Assert.assertEquals(4, dmmi.get(1, 0), 0);
+        Assert.assertEquals(5, dmmi.get(1, 1), 0);
+        Assert.assertEquals(6, dmmi.get(1, 2), 0);
+
+
         DefaultMutableMatrix<Integer> subset = new DefaultMutableMatrix<Integer>(dmmi, 0, 2, 0, 1);
         Assert.assertArrayEquals(new int[]{2, 1}, subset.getSize());
         Assert.assertEquals(1, subset.get(0, 0), 0);

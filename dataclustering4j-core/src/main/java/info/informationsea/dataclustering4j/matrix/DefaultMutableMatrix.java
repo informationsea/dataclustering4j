@@ -117,7 +117,9 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
 
     @Override
     public Object[] getRow(int row) {
-        return m_matrix[row];
+        Object[] rowArray = new Object[m_matrix[row].length];
+        System.arraycopy(m_matrix[row], 0, rowArray, 0, m_ncol);
+        return rowArray;
     }
 
     @Override
