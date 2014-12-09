@@ -25,10 +25,20 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
 
     Object[][] m_matrix;
 
+    /**
+     *
+     * @param nrow number of row
+     * @param ncol number of column
+     * @param defaultValue default value of matrix
+     */
     public DefaultMutableMatrix(int nrow, int ncol, T defaultValue) {
         initialize(nrow, ncol, defaultValue);
     }
 
+    /**
+     * Make copy of original matrix
+     * @param original original matrix
+     */
     public DefaultMutableMatrix(Matrix<T> original) {
         initialize(original.getSize()[0], original.getSize()[1], null);
         for (int i = 0; i < m_nrow; ++i) {
@@ -47,6 +57,15 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
             int row = i/ncol;
             int col = i%ncol;
             m_matrix[row][col] = values[i];
+        }
+    }
+
+    public DefaultMutableMatrix(Matrix<T> parent, int top, int bottom, int left, int right) {
+        initialize(bottom - top, right - left, parent.get(top, left));
+        for (int i = 0; i < (bottom - top); ++i) {
+            for (int j = 0; j < (right - left); ++j) {
+                put(i, j, parent.get(i + top, j + left));
+            }
         }
     }
 

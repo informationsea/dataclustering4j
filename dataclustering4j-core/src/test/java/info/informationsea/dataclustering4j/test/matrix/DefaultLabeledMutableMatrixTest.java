@@ -48,6 +48,18 @@ public class DefaultLabeledMutableMatrixTest {
     }
 
     @Test
+    public void testConstructor3() {
+        DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
+        m1.setRowKeys(new String[]{"X", "Y", "Z"});
+        m1.setColumnKeys(new String[]{"A", "B"});
+
+        DefaultLabeledMutableMatrix<Integer, String, String> m2 = new DefaultLabeledMutableMatrix<Integer, String, String>(m1, 1, 3, 0, 2);
+        Assert.assertEquals(Integer.valueOf(4), m2.get("Y", "B"));
+        Assert.assertEquals(Integer.valueOf(6), m2.get("Z", "B"));
+    }
+
+
+    @Test
     public void testKeys() {
         DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
         m1.setRowKeys(new String[]{"X", "Y", "Z"});
