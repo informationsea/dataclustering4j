@@ -20,6 +20,16 @@ package info.informationsea.dataclustering4j.matrix.aggregate;
 
 import java.util.List;
 
+/**
+ * Aggregate a list values
+ * @param <T> a type of argument value
+ * @param <V> a type of result value
+ */
 public interface Aggregate<T, V> {
+    /**
+     * Aggregate a list values
+     * @param array a list of values
+     * @return an aggregated value
+     */
     V process(List<T> array);
 }
