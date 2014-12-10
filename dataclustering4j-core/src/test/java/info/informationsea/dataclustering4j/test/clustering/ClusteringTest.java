@@ -18,8 +18,8 @@
 
 package info.informationsea.dataclustering4j.test.clustering;
 
-import info.informationsea.dataclustering4j.clustering.ClusterBranch;
-import info.informationsea.dataclustering4j.clustering.ClusterLeaf;
+import info.informationsea.dataclustering4j.clustering.impl.ClusterBranch;
+import info.informationsea.dataclustering4j.clustering.impl.ClusterLeaf;
 import info.informationsea.dataclustering4j.clustering.ClusterNode;
 import info.informationsea.dataclustering4j.clustering.Clustering;
 import info.informationsea.dataclustering4j.distance.DistanceMatrixMaker;
@@ -31,6 +31,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 public class ClusteringTest {
     private DefaultMutableMatrix<Double> original;
@@ -38,17 +39,42 @@ public class ClusteringTest {
 
     @Before
     public void setUp() throws IOException {
-        original = new DefaultMutableMatrix<Double>(new Double[]{0., 0., 1., 0., 1., 0.5, 1., 3., 1.0, 4.0, 1.5, 3.0}, 2);
+        original = new DefaultMutableMatrix<Double>(new Double[]{
+                0., 0.,
+                1., 0.,
+                1., 0.5,
+                1., 3.,
+                1.0, 4.0,
+                1.5, 3.0}, 2);
         distanceMatrix = DistanceMatrixMaker.matrixDistance(original, new DoubleEuclidDistance());
+    }
+
+    private HashSet<Integer> array2hashSet(int[] values) {
+        HashSet<Integer> hs = new HashSet<Integer>();
+        for (int i : values) {
+            hs.add(i);
+        }
+        return hs;
     }
 
     @Test
     public void testClustering() {
         ClusterNode tree = Clustering.doClustering(distanceMatrix, new CompleteLinkage());
 
-        ClusterNode expected = new ClusterBranch(
-                new ClusterBranch(new ClusterLeaf(0), new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(2))),
-                new ClusterBranch(new ClusterLeaf(4), new ClusterBranch(new ClusterLeaf(3), new ClusterLeaf(5))));
-        Assert.assertEquals(expected, tree);
+        Assert.assertEquals(4.123106, tree.distance(), 0.000001);
+        Assert.assertEquals(array2hashSet(new int[]{0, 1, 2}), tree.getChildren()[0].leafIndexes());
+        Assert.assertEquals(array2hashSet(new int[]{3, 4, 5}), tree.getChildren()[1].leafIndexes());
+
+        Assert.assertEquals(1.118034, tree.getChildren()[0].distance(), 0.000001);
+        Assert.assertEquals(array2hashSet(new int[]{0}), tree.getChildren()[0].getChildren()[0].leafIndexes());
+        Assert.assertEquals(array2hashSet(new int[]{1, 2}), tree.getChildren()[0].getChildren()[1].leafIndexes());
+
+        Assert.assertEquals(0, tree.getChildren()[0].getChildren()[0].distance(), 0);
+        Assert.assertEquals(0.5, tree.getChildren()[0].getChildren()[1].distance(), 0);
+        Assert.assertTrue(tree.getChildren()[0].getChildren()[0].isLeaf());
+        Assert.assertFalse(tree.getChildren()[0].getChildren()[1].isLeaf());
+
+        Assert.assertEquals(0, tree.getChildren()[1].getChildren()[1].distance(), 0);
+        Assert.assertEquals(0.5, tree.getChildren()[1].getChildren()[0].distance(), 0);
     }
 }

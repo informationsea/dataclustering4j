@@ -71,5 +71,15 @@ public class LinkageTest {
         public ClusterNode[] getChildren() {
             return new ClusterNode[0];
         }
+
+        @Override
+        public boolean isLeaf() {
+            return m_leafIndexes.size() == 1 ? true : false;
+        }
+
+        @Override
+        public double distance() {
+            return 0;
+        }
     }
 }

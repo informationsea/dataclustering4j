@@ -16,7 +16,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package info.informationsea.dataclustering4j.clustering;
+package info.informationsea.dataclustering4j.clustering.impl;
+
+import info.informationsea.dataclustering4j.clustering.ClusterNode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,12 +27,14 @@ public class ClusterBranch implements ClusterNode {
 
     ClusterNode m_left;
     ClusterNode m_right;
+    double m_distance;
 
     Set<Integer> m_leafIndexes;
 
-    public ClusterBranch(ClusterNode left, ClusterNode right) {
+    public ClusterBranch(ClusterNode left, ClusterNode right, double distance) {
         m_left = left;
         m_right = right;
+        m_distance = distance;
 
         m_leafIndexes = new HashSet<Integer>();
         m_leafIndexes.addAll(m_left.leafIndexes());
@@ -39,7 +43,7 @@ public class ClusterBranch implements ClusterNode {
 
     @Override
     public String toString() {
-        return String.format("Branch[\n%s\n%s]", m_left.toString(), m_right.toString());
+        return String.format("Branch(%.2e)[\n%s\n%s]", m_distance, m_left.toString(), m_right.toString());
     }
 
     @Override
@@ -49,12 +53,22 @@ public class ClusterBranch implements ClusterNode {
 
     @Override
     public ClusterNode[] getChildren() {
-        if (((Integer)m_left.leafIndexes().toArray()[0]).intValue() <
-                ((Integer)m_right.leafIndexes().toArray()[0]).intValue()) {
+        if ((Integer) m_left.leafIndexes().toArray()[0] <
+                (Integer) m_right.leafIndexes().toArray()[0]) {
             return new ClusterNode[]{m_left, m_right};
         } else {
             return new ClusterNode[]{m_right, m_left};
         }
+    }
+
+    @Override
+    public boolean isLeaf() {
+        return false;
+    }
+
+    @Override
+    public double distance() {
+        return m_distance;
     }
 
     @Override
@@ -64,7 +78,7 @@ public class ClusterBranch implements ClusterNode {
 
             ClusterNode[] a = cb.getChildren();
             ClusterNode[] b = getChildren();
-            return a[0].equals(b[0]) && a[1].equals(b[1]);
+            return a[0].equals(b[0]) && a[1].equals(b[1]) && cb.distance() == distance();
         }
         return super.equals(obj);
     }

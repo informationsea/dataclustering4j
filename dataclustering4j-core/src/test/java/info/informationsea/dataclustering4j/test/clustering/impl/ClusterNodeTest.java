@@ -16,10 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package info.informationsea.dataclustering4j.test.clustering;
+package info.informationsea.dataclustering4j.test.clustering.impl;
 
-import info.informationsea.dataclustering4j.clustering.ClusterBranch;
-import info.informationsea.dataclustering4j.clustering.ClusterLeaf;
+import info.informationsea.dataclustering4j.clustering.impl.ClusterBranch;
+import info.informationsea.dataclustering4j.clustering.impl.ClusterLeaf;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,8 +37,8 @@ public class ClusterNodeTest {
         leaf1 = new ClusterLeaf(1);
         leaf2 = new ClusterLeaf(10);
         leaf3 = new ClusterLeaf(7);
-        branch1 = new ClusterBranch(leaf1, leaf2);
-        branch2 = new ClusterBranch(branch1, leaf3);
+        branch1 = new ClusterBranch(leaf1, leaf2, 1);
+        branch2 = new ClusterBranch(branch1, leaf3, 1);
     }
 
     @Test
@@ -67,16 +67,23 @@ public class ClusterNodeTest {
 
     @Test
     public void testClusterBranchToString() {
-        Assert.assertEquals("Branch[\nNode[1]\nNode[10]]", branch1.toString());
-        Assert.assertEquals("Branch[\nBranch[\nNode[1]\nNode[10]]\nNode[7]]", branch2.toString());
+        Assert.assertEquals("Branch(1.00e+00)[\nNode[1]\nNode[10]]", branch1.toString());
+        Assert.assertEquals("Branch(1.00e+00)[\nBranch(1.00e+00)[\nNode[1]\nNode[10]]\nNode[7]]", branch2.toString());
     }
 
     @Test
     public void testClusterBranchEqual() {
-        Assert.assertTrue(branch1.equals(new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(10))));
-        Assert.assertFalse(branch1.equals(new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(7))));
-        Assert.assertFalse(branch1.equals(new ClusterBranch(new ClusterLeaf(9), new ClusterLeaf(10))));
-        Assert.assertFalse(branch2.equals(new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(10))));
+        Assert.assertTrue(branch1.equals(new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(10), 1)));
+        Assert.assertFalse(branch1.equals(new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(10), 2)));
+        Assert.assertFalse(branch1.equals(new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(7), 1)));
+        Assert.assertFalse(branch1.equals(new ClusterBranch(new ClusterLeaf(9), new ClusterLeaf(10), 1)));
+        Assert.assertFalse(branch2.equals(new ClusterBranch(new ClusterLeaf(1), new ClusterLeaf(10), 1)));
         Assert.assertFalse(branch1.equals(leaf1));
+    }
+
+    @Test
+    public void testIsLeaf() {
+        Assert.assertTrue(leaf1.isLeaf());
+        Assert.assertFalse(branch1.isLeaf());
     }
 }

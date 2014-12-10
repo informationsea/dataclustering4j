@@ -35,4 +35,16 @@ public interface ClusterNode {
      * @return return children of this node
      */
     public ClusterNode[] getChildren();
+
+    /**
+     * Is this node leaf?
+     * @return return true if this node is a leaf
+     */
+    public boolean isLeaf();
+
+    /**
+     * Get a distance of child nodes
+     * @return a distance of child nodes
+     */
+    public double distance();
 }

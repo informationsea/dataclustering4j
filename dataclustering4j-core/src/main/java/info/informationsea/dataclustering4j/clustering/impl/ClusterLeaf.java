@@ -16,7 +16,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package info.informationsea.dataclustering4j.clustering;
+package info.informationsea.dataclustering4j.clustering.impl;
+
+import info.informationsea.dataclustering4j.clustering.ClusterNode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +40,16 @@ public class ClusterLeaf implements ClusterNode {
     @Override
     public ClusterNode[] getChildren() {
         return new ClusterNode[0];
+    }
+
+    @Override
+    public boolean isLeaf() {
+        return true;
+    }
+
+    @Override
+    public double distance() {
+        return 0;
     }
 
     @Override

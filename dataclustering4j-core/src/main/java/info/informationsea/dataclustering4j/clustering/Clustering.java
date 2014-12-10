@@ -18,6 +18,8 @@
 
 package info.informationsea.dataclustering4j.clustering;
 
+import info.informationsea.dataclustering4j.clustering.impl.ClusterBranch;
+import info.informationsea.dataclustering4j.clustering.impl.ClusterLeaf;
 import info.informationsea.dataclustering4j.distance.DistanceMatrixMaker;
 import info.informationsea.dataclustering4j.linkage.Linkage;
 
@@ -63,7 +65,7 @@ public class Clustering {
             }
 
             currentNodes.add(new ClusterBranch(currentNodes.get(mindistanceIndexes[0]),
-                    currentNodes.get(mindistanceIndexes[1])));
+                    currentNodes.get(mindistanceIndexes[1]), mindistance));
             currentNodes.remove(mindistanceIndexes[1]);
             currentNodes.remove(mindistanceIndexes[0]);
         }
