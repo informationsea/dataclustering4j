@@ -1,1 +1,1 @@
-./gradlew clean check generatePomFileForMavenJavaPublication pP publish
+./gradlew clean assemble check generatePomFileForMavenJavaPublication pP publish

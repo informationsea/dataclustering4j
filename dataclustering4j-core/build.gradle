@@ -127,17 +127,17 @@ publishing {
     repositories {
         maven {
             if (version.contains('-SNAPSHOT')) {
-                url "https://oss.sonatype.org/content/repositories/snapshots"
-                credentials {
-                    username = getSonatypeUsername()
-                    password = getSonatypePassword()
-                }
-                //url "$buildDir/repo-snapshot"
+                //url "https://oss.sonatype.org/content/repositories/snapshots"
+                //credentials {
+                //    username = getUsername()
+                //    password = getPassword()
+                //}
+                url "$buildDir/repo-snapshot"
             } else {
                 url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
                 credentials {
-                    username = getSonatypeUsername()
-                    password = getSonatypePassword()
+                    username = getUsername()
+                    password = getPassword()
                 }
             }
         }

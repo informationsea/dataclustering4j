@@ -3,11 +3,11 @@ subprojects {
     version = "0.0.4-SNAPSHOT"
 }
 
-def getSonatypeUsername() {
-    return hasProperty('sonatypeUsername') ? sonatypeUsername : ""
+def getUsername() {
+    return hasProperty('sonatypeUsername') ? "$sonatypeUsername" : ""
 }
 
-def getSonatypePassword() {
+def getPassword() {
     return hasProperty('sonatypePassword') ? sonatypePassword : ""
 }
 
