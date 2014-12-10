@@ -1,6 +1,6 @@
 subprojects {
     group = 'info.informationsea.dataclustering4j'
-    version = "0.0.3"
+    version = "0.0.4-SNAPSHOT"
 }
 
 def getSonatypeUsername() {
