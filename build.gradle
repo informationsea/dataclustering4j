@@ -2,3 +2,12 @@ subprojects {
     group = 'info.informationsea.dataclustering4j'
     version = "0.0.3"
 }
+
+def getSonatypeUsername() {
+    return hasProperty('sonatypeUsername') ? sonatypeUsername : ""
+}
+
+def getSonatypePassword() {
+    return hasProperty('sonatypePassword') ? sonatypePassword : ""
+}
+
