@@ -18,23 +18,21 @@
 
 package info.informationsea.dataclustering4j.matrix.aggregate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 public class Median implements Aggregate<Number, Double> {
     @Override
     public Double process(List<Number> array) {
-        array.sort(new Comparator<Number>() {
-            @Override
-            public int compare(Number o1, Number o2) {
-                return Double.compare(o1.doubleValue(), o2.doubleValue());
-            }
-        });
-
-        if (array.size() % 2 == 0) {
-            return (array.get(array.size()/2).doubleValue() + array.get(array.size()/2-1).doubleValue())/2;
+        Number[] numbers = new Number[array.size()];
+        array.toArray(numbers);
+        Arrays.sort(numbers);
+        if (numbers.length % 2 == 0) {
+            return (numbers[(array.size()/2)].doubleValue() + numbers[array.size()/2-1].doubleValue())/2;
         } else {
-            return array.get(array.size()/2).doubleValue();
+            return numbers[array.size()/2].doubleValue();
         }
     }
 }
