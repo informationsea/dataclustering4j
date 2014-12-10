@@ -18,14 +18,12 @@
 
 package info.informationsea.dataclustering4j.matrix.aggregate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
-public class Median implements Aggregate<Number, Double> {
+public class Median<T extends Number> implements Aggregate<T, Double> {
     @Override
-    public Double process(List<Number> array) {
+    public Double process(List<T> array) {
         Number[] numbers = new Number[array.size()];
         array.toArray(numbers);
         Arrays.sort(numbers);

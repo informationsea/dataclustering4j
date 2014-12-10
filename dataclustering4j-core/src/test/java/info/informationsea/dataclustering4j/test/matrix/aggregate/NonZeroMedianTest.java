@@ -15,18 +15,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package info.informationsea.dataclustering4j.matrix.aggregate;
 
-import java.util.List;
+package info.informationsea.dataclustering4j.test.matrix.aggregate;
 
-public class Mean<T extends Number> implements Aggregate<T, Double> {
+import info.informationsea.dataclustering4j.matrix.aggregate.NonZeroMedian;
+import org.junit.Assert;
+import org.junit.Test;
 
-    @Override
-    public Double process(List<T> array) {
-        double sum = 0;
-        for (T n: array) {
-            sum += n.doubleValue();
-        }
-        return sum/array.size();
+import java.util.Arrays;
+
+public class NonZeroMedianTest {
+    @Test
+    public void testNonZeroMedian() {
+        Assert.assertEquals(3., new NonZeroMedian<Double>().process(Arrays.asList(1., 2., 3., 6., 8., 0., 0.)), 0);
+        Assert.assertEquals(1., new NonZeroMedian<Double>().process(Arrays.asList(1., 0., 0.)), 0);
     }
 }

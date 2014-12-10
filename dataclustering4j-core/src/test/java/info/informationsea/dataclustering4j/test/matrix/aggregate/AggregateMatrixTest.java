@@ -20,7 +20,6 @@ package info.informationsea.dataclustering4j.test.matrix.aggregate;
 
 import info.informationsea.dataclustering4j.matrix.DefaultMutableMatrix;
 import info.informationsea.dataclustering4j.matrix.Matrix;
-import info.informationsea.dataclustering4j.matrix.aggregate.AggregateMatrix;
 import info.informationsea.dataclustering4j.matrix.aggregate.Mean;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,22 +36,22 @@ public class AggregateMatrixTest {
     @Test
     public void testAggregateMatrixByRow() {
         Double[] rowMeans = new Double[2];
-        new AggregateMatrix<Double, Number, Double>().aggregateByRow(matrix, new Mean(), rowMeans);
+        matrix.aggregateByRow(new Mean<Double>(), rowMeans);
         Assert.assertArrayEquals(new Double[]{1.5, 3.5}, rowMeans);
     }
 
     @Test
     public void testAggregateMatrixByColumn() {
-        Double[] rowMeans = new Double[2];
-        new AggregateMatrix<Double, Number, Double>().aggregateByColumn(matrix, new Mean(), rowMeans);
-        Assert.assertArrayEquals(new Double[]{2., 3.}, rowMeans);
+        Double[] columnMeans = new Double[2];
+        matrix.aggregateByColumn(new Mean<Double>(), columnMeans);
+        Assert.assertArrayEquals(new Double[]{2., 3.}, columnMeans);
     }
 
     @Test
     public void testAggregateMatrixByRow2() {
         boolean exceptionThrowed = false;
         try {
-            new AggregateMatrix<Double, Number, Double>().aggregateByRow(matrix, new Mean(), new Double[3]);
+            matrix.aggregateByRow(new Mean<Double>(), new Double[3]);
         } catch (IllegalArgumentException e) {
             exceptionThrowed = true;
         }
@@ -63,7 +62,7 @@ public class AggregateMatrixTest {
     public void testAggregateMatrixByColumn2() {
         boolean exceptionThrowed = false;
         try {
-            new AggregateMatrix<Double, Number, Double>().aggregateByColumn(matrix, new Mean(), new Double[3]);
+            matrix.aggregateByColumn(new Mean<Double>(), new Double[3]);
         } catch (IllegalArgumentException e) {
             exceptionThrowed = true;
         }

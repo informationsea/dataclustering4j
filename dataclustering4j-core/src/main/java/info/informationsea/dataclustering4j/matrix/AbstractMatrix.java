@@ -18,6 +18,10 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+import info.informationsea.dataclustering4j.matrix.aggregate.Aggregate;
+
+import java.util.ArrayList;
+
 /**
  * An implementation of common methods in {@link Matrix}
  * @param <T> type of values
@@ -52,5 +56,37 @@ abstract public class AbstractMatrix<T> implements Matrix<T>{
     public T[] getRow(T[] array, int row) {
         System.arraycopy(getRow(row), 0, array, 0, getSize()[1]);
         return array;
+    }
+
+    @Override
+    public <V> V[] aggregateByRow(Aggregate<T, V> aggregate, V[] valueArray) {
+        if (valueArray.length != getSize()[0])
+            throw new IllegalArgumentException("a length of array should be equal to a number of row of matrix");
+
+        for (int i = 0; i < valueArray.length; i++) {
+            int ncol = getSize()[1];
+            ArrayList<T> values = new ArrayList<T>();
+            for (int j = 0; j < ncol; j++) {
+                values.add((T)get(i, j));
+            }
+            valueArray[i] = aggregate.process(values);
+        }
+        return valueArray;
+    }
+
+    @Override
+    public <V> V[] aggregateByColumn(Aggregate<T, V> aggregate, V[] valueArray) {
+        if (valueArray.length != getSize()[1])
+            throw new IllegalArgumentException("a length of array should be equal to a number of row of matrix");
+
+        for (int i = 0; i < valueArray.length; i++) {
+            int nrow = getSize()[0];
+            ArrayList<T> values = new ArrayList<T>();
+            for (int j = 0; j < nrow; j++) {
+                values.add((T)get(j, i));
+            }
+            valueArray[i] = aggregate.process(values);
+        }
+        return valueArray;
     }
 }

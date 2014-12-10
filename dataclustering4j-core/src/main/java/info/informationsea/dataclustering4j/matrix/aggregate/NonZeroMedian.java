@@ -15,18 +15,22 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package info.informationsea.dataclustering4j.matrix.aggregate;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Mean<T extends Number> implements Aggregate<T, Double> {
+public class NonZeroMedian<T extends Number> implements Aggregate<T, Double>{
+    private Median<T> median = new Median<T>();
 
     @Override
     public Double process(List<T> array) {
-        double sum = 0;
-        for (T n: array) {
-            sum += n.doubleValue();
+        ArrayList<T> nonzero = new ArrayList<T>();
+        for (T v: array) {
+            if (v.doubleValue() != 0)
+                nonzero.add(v);
         }
-        return sum/array.size();
+        return median.process(nonzero);
     }
 }

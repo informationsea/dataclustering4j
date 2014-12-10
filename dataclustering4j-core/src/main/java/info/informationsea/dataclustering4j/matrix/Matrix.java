@@ -18,6 +18,8 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+import info.informationsea.dataclustering4j.matrix.aggregate.Aggregate;
+
 /**
  * A matrix of values.
  * @param <T> type of values
@@ -35,14 +37,14 @@ public interface Matrix<T> {
      * @param col column index
      * @return a value corresponding to {@code row} and {@code col}
      */
-    T get(int row, int col);
+    public T get(int row, int col);
 
     /**
      * Get array of matrix row values
      * @param row row index
      * @return a object array of values in row
      */
-    Object[] getRow(int row);
+    public Object[] getRow(int row);
 
     /**
      * Get array of matrix row values in {@code T} array
@@ -50,11 +52,33 @@ public interface Matrix<T> {
      * @param row a {@code T} array which length is the number of column
      * @return a {@code T} array of values in row
      */
-    T[] getRow(T[] array, int row);
+    public T[] getRow(T[] array, int row);
 
     /**
      * Transpose matrix
      * @return a transposed matrix
      */
-    Matrix<T> transpose();
+    public Matrix<T> transpose();
+
+    /**
+     * Aggregate by rows.
+     * Calculate row means, or medians.
+     *
+     * @param aggregate implementation of {@link info.informationsea.dataclustering4j.matrix.aggregate.Aggregate}, such as {@link info.informationsea.dataclustering4j.matrix.aggregate.Mean}
+     * @param valueArray an array to keep result
+     * @param <V> a type of result
+     * @return {@code valueArray}
+     */
+    public<V> V[] aggregateByRow(Aggregate<T, V> aggregate, V[] valueArray);
+
+    /**
+     * Aggregate by columns.
+     * Calculate columns means, or medians.
+     *
+     * @param aggregate implementation of {@link info.informationsea.dataclustering4j.matrix.aggregate.Aggregate}, such as {@link info.informationsea.dataclustering4j.matrix.aggregate.Mean}
+     * @param valueArray an array to keep result
+     * @param <V> a type of result
+     * @return {@code valueArray}
+     */
+    public<V> V[] aggregateByColumn(Aggregate<T, V> aggregate, V[] valueArray);
 }
