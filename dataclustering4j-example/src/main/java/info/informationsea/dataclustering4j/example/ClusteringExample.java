@@ -38,7 +38,7 @@ public class ClusteringExample {
 
         try {
             Matrix<Double> m = CSVMatrixLoader.loadDoubleMatrix(new FileReader(argv[0]));
-            DistanceMatrixMaker.DistanceMatrix dm = new DistanceMatrixMaker<Double>().matrixDistance(m, new DoubleEuclidDistance());
+            DistanceMatrixMaker.DistanceMatrix dm = DistanceMatrixMaker.matrixDistance(m, new DoubleEuclidDistance());
             ClusterNode node = Clustering.doClustering(dm, new CompleteLinkage());
             System.out.println(node.toString());
         } catch (IOException e) {

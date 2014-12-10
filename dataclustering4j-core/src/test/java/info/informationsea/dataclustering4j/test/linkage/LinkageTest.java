@@ -39,7 +39,7 @@ public class LinkageTest {
     @Before
     public void setUp() throws IOException {
         original = new DefaultMutableMatrix<Double>(new Double[]{0., 0., 1., 0., 1., 0.5, 1., 3., 1.0, 4.0, 1.5, 3.0}, 2);
-        distanceMatrix = new DistanceMatrixMaker<Double>().matrixDistance(original, new DoubleEuclidDistance());
+        distanceMatrix = DistanceMatrixMaker.matrixDistance(original, new DoubleEuclidDistance());
     }
 
     @Test

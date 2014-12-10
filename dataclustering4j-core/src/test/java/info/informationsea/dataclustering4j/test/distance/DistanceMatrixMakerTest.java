@@ -31,7 +31,7 @@ public class DistanceMatrixMakerTest {
         m.put(1, 1, 1.0);
         m.put(2, 0, 1.0);
         //System.err.println(m.toString());
-        DistanceMatrixMaker.DistanceMatrix dm = new DistanceMatrixMaker<Double>().
+        DistanceMatrixMaker.DistanceMatrix dm = DistanceMatrixMaker.
                 matrixDistance(m, new DoubleEuclidDistance());
 
         Assert.assertEquals(Double.valueOf(0.0), dm.get(0, 0));

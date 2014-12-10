@@ -21,10 +21,10 @@ package info.informationsea.dataclustering4j.distance;
 import info.informationsea.dataclustering4j.matrix.Matrix;
 import info.informationsea.dataclustering4j.matrix.TriangleMutableMatrix;
 
-public class DistanceMatrixMaker<T> {
-    public DistanceMatrixMaker(){}
+public class DistanceMatrixMaker {
+    private DistanceMatrixMaker(){}
 
-    public DistanceMatrix matrixDistance(Matrix<T> matrix, Distance distance) {
+    public static <T> DistanceMatrix matrixDistance(Matrix<T> matrix, Distance distance) {
         int nrow = matrix.getSize()[0];
         DistanceMatrix m = new DistanceMatrix(nrow, 0.0);
 
