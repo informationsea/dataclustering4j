@@ -18,5 +18,5 @@ Copyrights
 How to use?
 -----------
 
-Please read [an example code](dataclustering4j-example/src/main/java/info/informationsea/java/dataclustering/example/ClusteringExample.java) to understand basic use.
+Please read [an example code](dataclustering4j-example/src/main/java/info/informationsea/dataclustering4j/example/ClusteringExample.java) to understand basic use.
 
