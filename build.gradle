@@ -1,13 +1,5 @@
 subprojects {
     group = 'info.informationsea.dataclustering4j'
-    version = "0.0.4-SNAPSHOT"
-}
-
-def getUsername() {
-    return hasProperty('sonatypeUsername') ? "$sonatypeUsername" : ""
-}
-
-def getPassword() {
-    return hasProperty('sonatypePassword') ? sonatypePassword : ""
+    version = "0.0.4"
 }
 
