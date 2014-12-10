@@ -58,6 +58,13 @@ public class DefaultLabeledMutableMatrixTest {
         Assert.assertEquals(Integer.valueOf(6), m2.get("Z", "B"));
     }
 
+    @Test
+    public void testConstructor4() {
+        DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
+
+        DefaultLabeledMutableMatrix<Integer, String, String> m2 = new DefaultLabeledMutableMatrix<Integer, String, String>(m1, 1, 3, 0, 2);
+        Assert.assertEquals(new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{3, 4, 5, 6}, 2), m2);
+    }
 
     @Test
     public void testKeys() {

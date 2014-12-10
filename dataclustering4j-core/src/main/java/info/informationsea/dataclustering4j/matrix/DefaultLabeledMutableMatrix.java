@@ -39,12 +39,16 @@ public class DefaultLabeledMutableMatrix<T, R, C> extends DefaultMutableMatrix<T
 
     public DefaultLabeledMutableMatrix(LabeledMatrix<T, R, C> original, int top, int bottom, int left, int right) {
         super(original, top, bottom, left, right);
-        Object[] rowKeys = new Object[bottom - top];
-        System.arraycopy(original.getRowKeys(), top, rowKeys, 0, bottom - top);
-        Object[] columnKeys = new Object[right - left];
-        System.arraycopy(original.getColumnKeys(), left, columnKeys, 0, right - left);
-        setColumnKeys((C[]) columnKeys);
-        setRowKeys((R[]) rowKeys);
+        if (original.getRowKeys() != null) {
+            Object[] rowKeys = new Object[bottom - top];
+            System.arraycopy(original.getRowKeys(), top, rowKeys, 0, bottom - top);
+            setRowKeys((R[]) rowKeys);
+        }
+        if (original.getColumnKeys() != null) {
+            Object[] columnKeys = new Object[right - left];
+            System.arraycopy(original.getColumnKeys(), left, columnKeys, 0, right - left);
+            setColumnKeys((C[]) columnKeys);
+        }
     }
 
     public DefaultLabeledMutableMatrix(T[] values, int ncol) {
