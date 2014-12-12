@@ -58,11 +58,12 @@ public class DendrogramDraw {
 
     private void drawStringAtCenter(String text, float x, float y) {
         Rectangle2D textRect = m_font.getStringBounds(text, new FontRenderContext(new AffineTransform(), true, true));
-        m_graphics.drawString(text, (float)(x - textRect.getWidth()/2), (float)(y - textRect.getHeight()/2));
+        m_graphics.drawString(text, (float)(x - textRect.getWidth()/2), (float)(y + textRect.getHeight()/2));
     }
 
-    private static final float MARGIN_TITLE = 60;
+    private static final float MARGIN_TITLE = 40;
     private static final float MARGIN = 20;
+    private static final float MARGIN_BOTTOM = 50;
 
     public void draw(ClusterNode node) {
         m_graphics.setColor(Color.BLACK);
@@ -74,7 +75,7 @@ public class DendrogramDraw {
             drawStringAtCenter(m_title, m_width / 2, MARGIN_TITLE / 2);
         }
 
-        Rectangle2D drawArea = new Rectangle2D.Float(MARGIN, topMargin, m_width - MARGIN*2, m_height - topMargin - MARGIN);
+        Rectangle2D drawArea = new Rectangle2D.Float(MARGIN, topMargin, m_width - MARGIN*2, m_height - topMargin - MARGIN_BOTTOM);
 
         // calculate maximum distance
         double maximumDistance = getMaximumDistance(node);
@@ -94,7 +95,7 @@ public class DendrogramDraw {
 
     private void drawNode(ClusterNode node, Rectangle2D drawArea, double distanceHeightFactor) {
         if (node.isLeaf()) {
-            m_graphics.drawString(node.leafIndexes().toArray()[0].toString(), (float)drawArea.getCenterX(), (float)drawArea.getY());
+            drawStringAtCenter(node.leafIndexes().toArray()[0].toString(), (float)drawArea.getCenterX(), (float)drawArea.getY()+8);
         } else {
             float height = (float) (distanceHeightFactor * node.distance());
             Rectangle2D areaForThisNode = new Rectangle2D.Double(drawArea.getX(), drawArea.getY(), drawArea.getWidth(), height);
