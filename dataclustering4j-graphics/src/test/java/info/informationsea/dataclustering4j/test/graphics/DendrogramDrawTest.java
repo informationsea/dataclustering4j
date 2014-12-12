@@ -46,6 +46,7 @@ public class DendrogramDrawTest {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, 500, 500);
         new DendrogramDraw(image).setTitle("TEST Dendrogram").draw(node);
-        ImageIO.write(image, "png", new File(new File(new File(System.getProperty("user.home")), "Desktop"), "dendrogram.png"));
+        if (System.getProperty("user.home") != null)
+            ImageIO.write(image, "png", new File(new File(new File(System.getProperty("user.home")), "Desktop"), "dendrogram.png"));
     }
 }
