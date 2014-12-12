@@ -81,4 +81,17 @@ public class LabeledTriangleMutableMatrixTest {
         Assert.assertEquals(Integer.valueOf(9), tmm.get("C", "A"));
     }
 
+    @Test
+    public void testGetRow() {
+        LabeledTriangleMutableMatrix<Integer, String> tmm = new LabeledTriangleMutableMatrix<Integer, String>(4, 1);
+        tmm.setColumnKeys(Arrays.asList("A", "B", "C", "D"));
+        tmm.put("A", "A", 10);
+        tmm.put("C", "D", 3);
+        tmm.put("A", "C", 9);
+        Assert.assertArrayEquals(new Integer[]{10, 1, 9, 1}, tmm.getRow("A"));
+
+        Integer[] array = new Integer[4];
+        tmm.getRow(array, "A");
+        Assert.assertArrayEquals(new Integer[]{10, 1, 9, 1}, array);
+    }
 }

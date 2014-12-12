@@ -91,6 +91,16 @@ abstract public class AbstractMutableLabeledMatrix<T, R, C> extends AbstractMatr
     }
 
     @Override
+    public T[] getRow(T[] array, R row) {
+        return getRow(array, m_rowKeyMap.get(row));
+    }
+
+    @Override
+    public Object[] getRow(R row) {
+        return getRow(m_rowKeyMap.get(row));
+    }
+
+    @Override
     public T get(R row, C column) {
         return get(m_rowKeyMap.get(row), m_columnKeyMap.get(column));
     }
@@ -135,7 +145,7 @@ abstract public class AbstractMutableLabeledMatrix<T, R, C> extends AbstractMatr
 
         @Override
         public Object[] getRow(int row) {
-            throw new UnsupportedOperationException();
+            return m_parent.getRow(row);
         }
 
         @Override
