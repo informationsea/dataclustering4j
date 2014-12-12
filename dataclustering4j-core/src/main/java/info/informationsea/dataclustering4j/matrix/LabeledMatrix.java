@@ -18,6 +18,8 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+import java.util.List;
+
 /**
  * A matrix with row and column labels.
  * @param <T> type of values
@@ -29,25 +31,25 @@ public interface LabeledMatrix<T, R, C> extends MutableMatrix<T> {
      * set new keys for the row
      * @param rowKeys array of row names
      */
-    public void setRowKeys(R[] rowKeys);
+    public void setRowKeys(List<R> rowKeys);
 
     /**
      * set new keys for the column
      * @param columnKeys array of column names
      */
-    public void setColumnKeys(C[] columnKeys);
+    public void setColumnKeys(List<C> columnKeys);
 
     /**
      * get keys for the row
      * @return a row key array
      */
-    public R[] getRowKeys();
+    public List<R> getRowKeys();
 
     /**
-     * get keys for the column
+     * get keys for the columnn
      * @return a column key array
      */
-    public C[] getColumnKeys();
+    public List<C> getColumnKeys();
 
     /**
      * get a value corresponding to {@code row} and {@code column}

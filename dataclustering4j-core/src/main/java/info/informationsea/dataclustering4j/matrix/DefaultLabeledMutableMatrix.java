@@ -18,6 +18,8 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+import java.util.List;
+
 public class DefaultLabeledMutableMatrix<T, R, C> extends DefaultMutableMatrix<T> implements LabeledMatrix<T, R, C> {
 
     private AbstractMutableLabeledMatrix.MutableLabeledMatrixProxy<T, R, C> m_proxy =
@@ -40,14 +42,10 @@ public class DefaultLabeledMutableMatrix<T, R, C> extends DefaultMutableMatrix<T
     public DefaultLabeledMutableMatrix(LabeledMatrix<T, R, C> original, int top, int bottom, int left, int right) {
         super(original, top, bottom, left, right);
         if (original.getRowKeys() != null) {
-            Object[] rowKeys = new Object[bottom - top];
-            System.arraycopy(original.getRowKeys(), top, rowKeys, 0, bottom - top);
-            setRowKeys((R[]) rowKeys);
+            setRowKeys(original.getRowKeys().subList(top, bottom));
         }
         if (original.getColumnKeys() != null) {
-            Object[] columnKeys = new Object[right - left];
-            System.arraycopy(original.getColumnKeys(), left, columnKeys, 0, right - left);
-            setColumnKeys((C[]) columnKeys);
+            setColumnKeys(original.getColumnKeys().subList(left, right));
         }
     }
 
@@ -56,22 +54,22 @@ public class DefaultLabeledMutableMatrix<T, R, C> extends DefaultMutableMatrix<T
     }
 
     @Override
-    public void setRowKeys(R[] rowKeys) {
+    public void setRowKeys(List<R> rowKeys) {
         m_proxy.setRowKeys(rowKeys);
     }
 
     @Override
-    public void setColumnKeys(C[] columnKeys) {
+    public void setColumnKeys(List<C> columnKeys) {
         m_proxy.setColumnKeys(columnKeys);
     }
 
     @Override
-    public R[] getRowKeys() {
+    public List<R> getRowKeys() {
         return m_proxy.getRowKeys();
     }
 
     @Override
-    public C[] getColumnKeys() {
+    public List<C> getColumnKeys() {
         return m_proxy.getColumnKeys();
     }
 

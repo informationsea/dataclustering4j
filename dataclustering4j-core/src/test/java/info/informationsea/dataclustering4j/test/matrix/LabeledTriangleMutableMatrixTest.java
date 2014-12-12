@@ -22,28 +22,30 @@ import info.informationsea.dataclustering4j.matrix.LabeledTriangleMutableMatrix;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class LabeledTriangleMutableMatrixTest {
     @Test
     public void testKeys() {
         LabeledTriangleMutableMatrix<Integer, String> tmm = new LabeledTriangleMutableMatrix<Integer, String>(3, 1);
-        tmm.setColumnKeys(new String[]{"A", "B", "C"});
-        Assert.assertArrayEquals(new String[]{"A", "B", "C"}, tmm.getKeys());
-        Assert.assertArrayEquals(new String[]{"A", "B", "C"}, tmm.getColumnKeys());
-        Assert.assertArrayEquals(new String[]{"A", "B", "C"}, tmm.getRowKeys());
-        tmm.setRowKeys(new String[]{"X", "Y", "Z"});
-        Assert.assertArrayEquals(new String[]{"X", "Y", "Z"}, tmm.getKeys());
-        Assert.assertArrayEquals(new String[]{"X", "Y", "Z"}, tmm.getColumnKeys());
-        Assert.assertArrayEquals(new String[]{"X", "Y", "Z"}, tmm.getRowKeys());
-        tmm.setKeys(new String[]{"1", "2", "3"});
-        Assert.assertArrayEquals(new String[]{"1", "2", "3"}, tmm.getKeys());
-        Assert.assertArrayEquals(new String[]{"1", "2", "3"}, tmm.getColumnKeys());
-        Assert.assertArrayEquals(new String[]{"1", "2", "3"}, tmm.getRowKeys());
+        tmm.setColumnKeys(Arrays.asList("A", "B", "C"));
+        Assert.assertArrayEquals(new String[]{"A", "B", "C"}, tmm.getKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"A", "B", "C"}, tmm.getColumnKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"A", "B", "C"}, tmm.getRowKeys().toArray());
+        tmm.setRowKeys(Arrays.asList("X", "Y", "Z"));
+        Assert.assertArrayEquals(new String[]{"X", "Y", "Z"}, tmm.getKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"X", "Y", "Z"}, tmm.getColumnKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"X", "Y", "Z"}, tmm.getRowKeys().toArray());
+        tmm.setKeys(Arrays.asList("1", "2", "3"));
+        Assert.assertArrayEquals(new String[]{"1", "2", "3"}, tmm.getKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"1", "2", "3"}, tmm.getColumnKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"1", "2", "3"}, tmm.getRowKeys().toArray());
     }
 
     @Test
     public void testAt() {
         LabeledTriangleMutableMatrix<Integer, String> tmm = new LabeledTriangleMutableMatrix<Integer, String>(4, 1);
-        tmm.setColumnKeys(new String[]{"A", "B", "C", "D"});
+        tmm.setColumnKeys(Arrays.asList("A", "B", "C", "D"));
 
         Assert.assertEquals(Integer.valueOf(1), tmm.get("A", "B"));
     }
@@ -51,7 +53,7 @@ public class LabeledTriangleMutableMatrixTest {
     @Test
     public void testSetAndAt() {
         LabeledTriangleMutableMatrix<Integer, String> tmm = new LabeledTriangleMutableMatrix<Integer, String>(4, 1);
-        tmm.setColumnKeys(new String[]{"A", "B", "C", "D"});
+        tmm.setColumnKeys(Arrays.asList("A", "B", "C", "D"));
         tmm.put("A", "A", 10);
         tmm.put("C", "D", 3);
         tmm.put("A", "C", 9);
@@ -66,7 +68,7 @@ public class LabeledTriangleMutableMatrixTest {
     @Test
     public void testTranspose() {
         LabeledTriangleMutableMatrix<Integer, String> tmm = new LabeledTriangleMutableMatrix<Integer, String>(4, 1);
-        tmm.setColumnKeys(new String[]{"A", "B", "C", "D"});
+        tmm.setColumnKeys(Arrays.asList("A", "B", "C", "D"));
         tmm.put("A", "A", 10);
         tmm.put("C", "D", 3);
         tmm.put("A", "C", 9);

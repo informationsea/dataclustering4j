@@ -18,7 +18,9 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * An implementation of common methods in {@link LabeledMatrix}
@@ -28,58 +30,64 @@ import java.util.HashMap;
  */
 abstract public class AbstractMutableLabeledMatrix<T, R, C> extends AbstractMatrix<T> implements LabeledMatrix<T, R, C>, MutableMatrix<T>  {
 
-    private R[] m_rowKeys = null;
-    private C[] m_columnKeys = null;
+    private List<R> m_rowKeys = null;
+    private List<C> m_columnKeys = null;
     private HashMap<R, Integer> m_rowKeyMap = new HashMap<R, Integer>();
     private HashMap<C, Integer> m_columnKeyMap = new HashMap<C, Integer>();
 
     @Override
-    public void setRowKeys(R[] rowKeys) {
+    public void setRowKeys(List<R> rowKeys) {
+        m_rowKeyMap.clear();
+
         if (rowKeys == null) {
             m_rowKeys = null;
-            m_rowKeyMap.clear();
             return;
         }
 
-        if (rowKeys.length != getSize()[0])
+        if (rowKeys.size() != getSize()[0])
             throw new IllegalArgumentException("A number of row keys should equal to a number of rows");
 
         m_rowKeys = rowKeys;
-        for (int i = 0; i < rowKeys.length; i++) {
-            m_rowKeyMap.put(rowKeys[i], i);
+        for (int i = 0; i < rowKeys.size(); i++) {
+            m_rowKeyMap.put(rowKeys.get(i), i);
         }
     }
 
     @Override
-    public void setColumnKeys(C[] columnKeys) {
+    public void setColumnKeys(List<C> columnKeys) {
+        m_columnKeyMap.clear();
+
         if (columnKeys == null) {
             m_columnKeys = null;
-            m_columnKeyMap.clear();
             return;
         }
 
-        if (columnKeys.length != getSize()[1])
+        if (columnKeys.size() != getSize()[1])
             throw new IllegalArgumentException("A number of row keys should equal to a number of rows");
 
         m_columnKeys = columnKeys;
 
-        for (int i = 0; i < columnKeys.length; i++) {
-            m_columnKeyMap.put(columnKeys[i], i);
+        for (int i = 0; i < columnKeys.size(); i++) {
+            m_columnKeyMap.put(columnKeys.get(i), i);
         }
     }
 
     @Override
-    public R[] getRowKeys() {
+    public List<R> getRowKeys() {
         if (m_rowKeys == null)
             return null;
-        return m_rowKeys.clone();
+        ArrayList <R> newlist = new ArrayList<R>();
+        newlist.addAll(m_rowKeys);
+        return newlist;
     }
 
     @Override
-    public C[] getColumnKeys() {
+    public List<C> getColumnKeys() {
         if (m_columnKeys == null)
             return null;
-        return m_columnKeys.clone();
+        ArrayList<C> newlist = new ArrayList<C>();
+        newlist.addAll(m_columnKeys);
+        return newlist;
     }
 
     @Override

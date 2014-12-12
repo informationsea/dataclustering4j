@@ -1,5 +1,7 @@
 package info.informationsea.dataclustering4j.matrix;
 
+import java.util.List;
+
 /**
  * dataclustering4j
  * Copyright (C) 2014 Yasunobu OKAMURA
@@ -17,22 +19,22 @@ public class LabeledMappedMatrix<T, R, C> extends MappedMatrix<T> implements Lab
     }
 
     @Override
-    public void setRowKeys(R[] rowKeys) {
+    public void setRowKeys(List<R> rowKeys) {
         m_parent.setRowKeys(rowKeys);
     }
 
     @Override
-    public void setColumnKeys(C[] columnKeys) {
+    public void setColumnKeys(List<C> columnKeys) {
         m_parent.setColumnKeys(columnKeys);
     }
 
     @Override
-    public R[] getRowKeys() {
+    public List<R> getRowKeys() {
         return m_parent.getRowKeys();
     }
 
     @Override
-    public C[] getColumnKeys() {
+    public List<C> getColumnKeys() {
         return m_parent.getColumnKeys();
     }
 

@@ -23,13 +23,15 @@ import info.informationsea.dataclustering4j.matrix.DoubleIdentityMatrix;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class DefaultLabeledMutableMatrixTest {
 
     @Test
     public void testConstructor1() {
         DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
-        m1.setRowKeys(new String[]{"X", "Y", "Z"});
-        m1.setColumnKeys(new String[]{"A", "B"});
+        m1.setRowKeys(Arrays.asList("X", "Y", "Z"));
+        m1.setColumnKeys(Arrays.asList("A", "B"));
 
         DefaultLabeledMutableMatrix<Integer, String, String> m2 = new DefaultLabeledMutableMatrix<Integer, String, String>(m1);
         Assert.assertEquals(Integer.valueOf(1), m2.get("X", "A"));
@@ -50,8 +52,8 @@ public class DefaultLabeledMutableMatrixTest {
     @Test
     public void testConstructor3() {
         DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
-        m1.setRowKeys(new String[]{"X", "Y", "Z"});
-        m1.setColumnKeys(new String[]{"A", "B"});
+        m1.setRowKeys(Arrays.asList("X", "Y", "Z"));
+        m1.setColumnKeys(Arrays.asList("A", "B"));
 
         DefaultLabeledMutableMatrix<Integer, String, String> m2 = new DefaultLabeledMutableMatrix<Integer, String, String>(m1, 1, 3, 0, 2);
         Assert.assertEquals(Integer.valueOf(4), m2.get("Y", "B"));
@@ -69,8 +71,8 @@ public class DefaultLabeledMutableMatrixTest {
     @Test
     public void testKeys() {
         DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
-        m1.setRowKeys(new String[]{"X", "Y", "Z"});
-        m1.setColumnKeys(new String[]{"A", "B"});
+        m1.setRowKeys(Arrays.asList("X", "Y", "Z"));
+        m1.setColumnKeys(Arrays.asList("A", "B"));
         m1.setRowKeys(null);
         m1.setColumnKeys(null);
 
@@ -84,7 +86,7 @@ public class DefaultLabeledMutableMatrixTest {
 
         boolean exceptionRaised = false;
         try {
-            m1.setColumnKeys(new String[]{});
+            m1.setColumnKeys(Arrays.asList(new String[]{}));
         } catch (IllegalArgumentException iae) {
             exceptionRaised = true;
         }
@@ -92,7 +94,7 @@ public class DefaultLabeledMutableMatrixTest {
 
         exceptionRaised = false;
         try {
-            m1.setRowKeys(new String[]{});
+            m1.setRowKeys(Arrays.asList(new String[]{}));
         } catch (IllegalArgumentException iae) {
             exceptionRaised = true;
         }
@@ -102,8 +104,8 @@ public class DefaultLabeledMutableMatrixTest {
     @Test
     public void testLabelGet() {
         DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
-        m1.setRowKeys(new String[]{"X", "Y", "Z"});
-        m1.setColumnKeys(new String[]{"A", "B"});
+        m1.setRowKeys(Arrays.asList("X", "Y", "Z"));
+        m1.setColumnKeys(Arrays.asList("A", "B"));
         Assert.assertEquals(Integer.valueOf(1), m1.get("X", "A"));
         Assert.assertEquals(Integer.valueOf(4), m1.get("Y", "B"));
         Assert.assertEquals(Integer.valueOf(6), m1.get("Z", "B"));
@@ -112,9 +114,8 @@ public class DefaultLabeledMutableMatrixTest {
     @Test
     public void testLabelPut() {
         DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
-        m1.setRowKeys(new String[]{"X", "Y", "Z"});
-        m1.setColumnKeys(new String[]{"A", "B"});
-
+        m1.setRowKeys(Arrays.asList("X", "Y", "Z"));
+        m1.setColumnKeys(Arrays.asList("A", "B"));
 
         m1.put("X", "A", 10);
         m1.put("Y", "B", 11);
@@ -129,8 +130,8 @@ public class DefaultLabeledMutableMatrixTest {
     @Test
     public void testTranspose() {
         DefaultLabeledMutableMatrix<Integer, String, String> m1 = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4, 5, 6}, 2);
-        m1.setRowKeys(new String[]{"X", "Y", "Z"});
-        m1.setColumnKeys(new String[]{"A", "B"});
+        m1.setRowKeys(Arrays.asList("X", "Y", "Z"));
+        m1.setColumnKeys(Arrays.asList("A", "B"));
 
         DefaultLabeledMutableMatrix<Integer, String, String> m2 = (DefaultLabeledMutableMatrix<Integer, String, String>)m1.transpose();
         Assert.assertEquals(Integer.valueOf(1), m2.get("A", "X"));

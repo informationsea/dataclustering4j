@@ -18,6 +18,8 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+import java.util.List;
+
 /**
  * Labeled Triangle Matrix implementation.
  * Please refer {@link info.informationsea.dataclustering4j.matrix.TriangleMutableMatrix} to learn more.
@@ -34,33 +36,33 @@ public class LabeledTriangleMutableMatrix<T, K> extends TriangleMutableMatrix<T>
     }
 
     @Override
-    public void setRowKeys(K[] rowKeys) {
+    public void setRowKeys(List<K> rowKeys) {
         m_proxy.setRowKeys(rowKeys);
         m_proxy.setColumnKeys(rowKeys);
     }
 
     @Override
-    public void setColumnKeys(K[] columnKeys) {
+    public void setColumnKeys(List<K> columnKeys) {
         m_proxy.setRowKeys(columnKeys);
         m_proxy.setColumnKeys(columnKeys);
     }
 
-    public void setKeys(K[] keys) {
+    public void setKeys(List<K> keys) {
         m_proxy.setRowKeys(keys);
         m_proxy.setColumnKeys(keys);
     }
 
     @Override
-    public K[] getRowKeys() {
+    public List<K> getRowKeys() {
         return m_proxy.getRowKeys();
     }
 
     @Override
-    public K[] getColumnKeys() {
+    public List<K> getColumnKeys() {
         return m_proxy.getColumnKeys();
     }
 
-    public K[] getKeys() {
+    public List<K> getKeys() {
         return m_proxy.getRowKeys();
     }
 

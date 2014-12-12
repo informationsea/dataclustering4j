@@ -25,6 +25,7 @@ import info.informationsea.dataclustering4j.matrix.DefaultMutableMatrix;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CSVMatrixLoader {
     private CSVMatrixLoader(){};
@@ -73,9 +74,9 @@ public class CSVMatrixLoader {
         if (rows.get(0).length == maximumColumn) {
             String[] header = new String[maximumColumn-1];
             System.arraycopy(rows.get(0), 1, header, 0, maximumColumn-1);
-            m.setColumnKeys(header);
+            m.setColumnKeys(Arrays.asList(header));
         } else if (rows.get(0).length == maximumColumn-1) {
-            m.setColumnKeys(rows.get(0));
+            m.setColumnKeys(Arrays.asList(rows.get(0)));
         } else {
             throw new RuntimeException("Illegal number of column names");
         }
@@ -92,7 +93,7 @@ public class CSVMatrixLoader {
                 i += 1;
             }
         }
-        m.setRowKeys(rownames);
+        m.setRowKeys(Arrays.asList(rownames));
 
         return m;
     }

@@ -33,8 +33,8 @@ public class CSVMatrixLoaderTest {
         Assert.assertEquals(Double.valueOf(0), m.get(0, 0));
         Assert.assertEquals(Double.valueOf(1), m.get(1, 0));
         Assert.assertEquals(Double.valueOf(0.5), m.get(2, 1));
-        Assert.assertArrayEquals(new String[]{"X", "Y"}, m.getColumnKeys());
-        Assert.assertArrayEquals(new String[]{"A", "B", "C", "D", "E", "F"}, m.getRowKeys());
+        Assert.assertArrayEquals(new String[]{"X", "Y"}, m.getColumnKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"A", "B", "C", "D", "E", "F"}, m.getRowKeys().toArray());
     }
 
     @Test
@@ -45,8 +45,8 @@ public class CSVMatrixLoaderTest {
         Assert.assertEquals(Double.valueOf(0), m.get(0, 0));
         Assert.assertEquals(Double.valueOf(1), m.get(1, 0));
         Assert.assertEquals(Double.valueOf(0.5), m.get(2, 1));
-        Assert.assertArrayEquals(new String[]{"X", "Y"}, m.getColumnKeys());
-        Assert.assertArrayEquals(new String[]{"A", "B", "C", "D", "E", "F"}, m.getRowKeys());
+        Assert.assertArrayEquals(new String[]{"X", "Y"}, m.getColumnKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"A", "B", "C", "D", "E", "F"}, m.getRowKeys().toArray());
     }
 
     @Test

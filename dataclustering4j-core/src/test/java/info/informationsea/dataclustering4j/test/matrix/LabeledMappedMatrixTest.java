@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * dataclustering4j
  * Copyright (C) 2014 Yasunobu OKAMURA
@@ -20,8 +22,8 @@ public class LabeledMappedMatrixTest {
     @Before
     public void initialized() {
         m_dlmm = new DefaultLabeledMutableMatrix<Integer, String, String>(new Integer[]{1, 2, 3, 4}, 2);
-        m_dlmm.setColumnKeys(new String[]{"A", "B"});
-        m_dlmm.setRowKeys(new String[]{"1", "2"});
+        m_dlmm.setColumnKeys(Arrays.asList("A", "B"));
+        m_dlmm.setRowKeys(Arrays.asList("1", "2"));
 
         m_matrix = new LabeledMappedMatrix<Integer, String, String>(m_dlmm, new MappedMatrix.MapValue<Integer>() {
             @Override
@@ -36,14 +38,14 @@ public class LabeledMappedMatrixTest {
         Assert.assertEquals(2, m_matrix.get("1", "A"), 0);
         Assert.assertEquals(8, m_matrix.get("2", "B"), 0);
 
-        Assert.assertArrayEquals(new String[]{"A", "B"}, m_matrix.getColumnKeys());
-        Assert.assertArrayEquals(new String[]{"1", "2"}, m_matrix.getRowKeys());
+        Assert.assertArrayEquals(new String[]{"A", "B"}, m_matrix.getColumnKeys().toArray());
+        Assert.assertArrayEquals(new String[]{"1", "2"}, m_matrix.getRowKeys().toArray());
     }
 
     @Test
     public void testLabeledMappedMatrix2() {
-        m_matrix.setColumnKeys(new String[]{"X", "Y"});
-        m_matrix.setRowKeys(new String[]{"X", "Y"});
+        m_matrix.setColumnKeys(Arrays.asList("X", "Y"));
+        m_matrix.setRowKeys(Arrays.asList("X", "Y"));
         Assert.assertEquals(2, m_matrix.get("X", "X"), 0);
         Assert.assertEquals(8, m_matrix.get("Y", "Y"), 0);
     }
