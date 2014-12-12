@@ -46,7 +46,12 @@ public class DendrogramDrawTest {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, 500, 500);
         new DendrogramDraw(image).setTitle("TEST Dendrogram").draw(node);
-        if (System.getProperty("user.home") != null)
-            ImageIO.write(image, "png", new File(new File(new File(System.getProperty("user.home")), "Desktop"), "dendrogram.png"));
+
+        if (System.getProperty("user.home") == null) return;
+        File homeDir = new File(System.getProperty("user.home"));
+        File desktopDir = new File(homeDir, "Desktop");
+        if (!desktopDir.isDirectory()) return; // do not write out if desktop is not exists
+
+        ImageIO.write(image, "png", new File(desktopDir, "dendrogram.png"));
     }
 }
