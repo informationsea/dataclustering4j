@@ -62,19 +62,18 @@ public class ClusteringTest {
         ClusterNode tree = Clustering.doClustering(distanceMatrix, new CompleteLinkage());
 
         Assert.assertEquals(4.123106, tree.distance(), 0.000001);
-        Assert.assertEquals(array2hashSet(new int[]{0, 1, 2}), tree.getChildren()[0].leafIndexes());
-        Assert.assertEquals(array2hashSet(new int[]{3, 4, 5}), tree.getChildren()[1].leafIndexes());
+        Assert.assertArrayEquals(new Integer[]{0, 1, 2}, tree.getChildren()[0].leafIndexes().toArray());
+        Assert.assertArrayEquals(new Integer[]{4, 3, 5}, tree.getChildren()[1].leafIndexes().toArray());
 
         Assert.assertEquals(1.118034, tree.getChildren()[0].distance(), 0.000001);
-        Assert.assertEquals(array2hashSet(new int[]{0}), tree.getChildren()[0].getChildren()[0].leafIndexes());
-        Assert.assertEquals(array2hashSet(new int[]{1, 2}), tree.getChildren()[0].getChildren()[1].leafIndexes());
+        Assert.assertArrayEquals(new Integer[]{0}, tree.getChildren()[0].getChildren()[0].leafIndexes().toArray());
 
         Assert.assertEquals(0, tree.getChildren()[0].getChildren()[0].distance(), 0);
         Assert.assertEquals(0.5, tree.getChildren()[0].getChildren()[1].distance(), 0);
         Assert.assertTrue(tree.getChildren()[0].getChildren()[0].isLeaf());
         Assert.assertFalse(tree.getChildren()[0].getChildren()[1].isLeaf());
 
-        Assert.assertEquals(0, tree.getChildren()[1].getChildren()[1].distance(), 0);
-        Assert.assertEquals(0.5, tree.getChildren()[1].getChildren()[0].distance(), 0);
+        Assert.assertEquals(0, tree.getChildren()[1].getChildren()[0].distance(), 0);
+        Assert.assertEquals(0.5, tree.getChildren()[1].getChildren()[1].distance(), 0);
     }
 }

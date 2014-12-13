@@ -68,7 +68,7 @@ public class ClusterNodeTest {
     @Test
     public void testClusterBranchToString() {
         Assert.assertEquals("Branch(1.00e+00)[\nNode[1]\nNode[10]]", branch1.toString());
-        Assert.assertEquals("Branch(1.00e+00)[\nBranch(1.00e+00)[\nNode[1]\nNode[10]]\nNode[7]]", branch2.toString());
+        Assert.assertEquals("Branch(1.00e+00)[\nNode[7]\nBranch(1.00e+00)[\nNode[1]\nNode[10]]]", branch2.toString());
     }
 
     @Test
