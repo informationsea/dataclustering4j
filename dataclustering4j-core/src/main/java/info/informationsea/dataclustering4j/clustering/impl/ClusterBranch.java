@@ -20,8 +20,10 @@ package info.informationsea.dataclustering4j.clustering.impl;
 
 import info.informationsea.dataclustering4j.clustering.ClusterNode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 public class ClusterBranch implements ClusterNode {
 
@@ -29,14 +31,23 @@ public class ClusterBranch implements ClusterNode {
     ClusterNode m_right;
     double m_distance;
 
-    Set<Integer> m_leafIndexes;
+    List<Integer> m_leafIndexes;
 
     public ClusterBranch(ClusterNode left, ClusterNode right, double distance) {
+
+        if (left.leafIndexes().size() > right.leafIndexes().size() ||
+                (left.leafIndexes().size() == right.leafIndexes().size() &&
+                        left.leafIndexes().get(0) > right.leafIndexes().get(0))) {
+            ClusterNode temp = left;
+            left = right;
+            right = temp;
+        }
+
         m_left = left;
         m_right = right;
         m_distance = distance;
 
-        m_leafIndexes = new HashSet<Integer>();
+        m_leafIndexes = new ArrayList<Integer>();
         m_leafIndexes.addAll(m_left.leafIndexes());
         m_leafIndexes.addAll(m_right.leafIndexes());
     }
@@ -47,18 +58,13 @@ public class ClusterBranch implements ClusterNode {
     }
 
     @Override
-    public Set<Integer> leafIndexes() {
+    public List<Integer> leafIndexes() {
         return m_leafIndexes;
     }
 
     @Override
     public ClusterNode[] getChildren() {
-        if ((Integer) m_left.leafIndexes().toArray()[0] <
-                (Integer) m_right.leafIndexes().toArray()[0]) {
-            return new ClusterNode[]{m_left, m_right};
-        } else {
-            return new ClusterNode[]{m_right, m_left};
-        }
+        return new ClusterNode[]{m_left, m_right};
     }
 
     @Override

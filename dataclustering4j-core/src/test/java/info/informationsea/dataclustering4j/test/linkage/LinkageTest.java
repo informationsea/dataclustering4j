@@ -29,8 +29,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LinkageTest {
     private DefaultMutableMatrix<Double> original;
@@ -54,7 +54,7 @@ public class LinkageTest {
     }
 
     private static class TestNode implements ClusterNode {
-        Set<Integer> m_leafIndexes = new HashSet<Integer>();
+        List<Integer> m_leafIndexes = new ArrayList<Integer>();
 
         public TestNode(int[] leafIndexes) {
             for (int v: leafIndexes) {
@@ -63,7 +63,7 @@ public class LinkageTest {
         }
 
         @Override
-        public Set<Integer> leafIndexes() {
+        public List<Integer> leafIndexes() {
             return m_leafIndexes;
         }
 
@@ -74,7 +74,7 @@ public class LinkageTest {
 
         @Override
         public boolean isLeaf() {
-            return m_leafIndexes.size() == 1 ? true : false;
+            return m_leafIndexes.size() == 1;
         }
 
         @Override

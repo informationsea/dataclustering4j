@@ -20,20 +20,19 @@ package info.informationsea.dataclustering4j.clustering.impl;
 
 import info.informationsea.dataclustering4j.clustering.ClusterNode;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Arrays;
 
 public class ClusterLeaf implements ClusterNode {
 
-    Set<Integer> m_leaf;
+    List<Integer> m_leaf;
 
     public ClusterLeaf(int leafIndex) {
-        m_leaf = new HashSet<Integer>();
-        m_leaf.add(leafIndex);
+        m_leaf = Arrays.asList(leafIndex);
     }
 
     @Override
-    public Set<Integer> leafIndexes() {
+    public List<Integer> leafIndexes() {
         return m_leaf;
     }
 
@@ -54,13 +53,13 @@ public class ClusterLeaf implements ClusterNode {
 
     @Override
     public String toString() {
-        return String.format("Node[%d]", ((Number)m_leaf.toArray()[0]).intValue());
+        return String.format("Node[%d]", ((Number)m_leaf.get(0)).intValue());
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ClusterLeaf) {
-            return ((ClusterLeaf)obj).leafIndexes().toArray()[0].equals(m_leaf.toArray()[0]);
+            return ((ClusterLeaf)obj).leafIndexes().get(0).equals(m_leaf.get(0));
         }
         return super.equals(obj);
     }
