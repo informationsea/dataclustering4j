@@ -20,9 +20,12 @@ package info.informationsea.dataclustering4j.test.distance;
 
 import info.informationsea.dataclustering4j.distance.DistanceMatrixMaker;
 import info.informationsea.dataclustering4j.distance.DoubleEuclidDistance;
+import info.informationsea.dataclustering4j.matrix.DefaultLabeledMutableMatrix;
 import info.informationsea.dataclustering4j.matrix.DefaultMutableMatrix;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 public class DistanceMatrixMakerTest {
     @Test
@@ -39,4 +42,23 @@ public class DistanceMatrixMakerTest {
         Assert.assertEquals(Double.valueOf(1.0), dm.get(0, 2));
         Assert.assertEquals(Double.valueOf(Math.sqrt(2)), dm.get(1, 2));
     }
+
+    @Test
+    public void testDistanceMatrixMaker2() {
+        DefaultLabeledMutableMatrix<Double, String, Integer> m = new DefaultLabeledMutableMatrix(3, 2, 0.0);
+        m.put(1, 1, 1.0);
+        m.put(2, 0, 1.0);
+        m.setRowKeys(Arrays.asList("A", "B", "C"));
+        m.setColumnKeys(Arrays.asList(1, 2));
+        //System.err.println(m.toString());
+        DistanceMatrixMaker.LabeledDistanceMatrix<String> dm = DistanceMatrixMaker.
+                matrixDistance(m, new DoubleEuclidDistance());
+
+        Assert.assertEquals(Double.valueOf(0.0), dm.get(0, 0));
+        Assert.assertEquals(Double.valueOf(1.0), dm.get(0, 1));
+        Assert.assertEquals(Double.valueOf(1.0), dm.get(0, 2));
+        Assert.assertEquals(Double.valueOf(Math.sqrt(2)), dm.get(1, 2));
+    }
+
+
 }

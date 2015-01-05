@@ -18,15 +18,14 @@
 
 package info.informationsea.dataclustering4j.distance;
 
-import info.informationsea.dataclustering4j.matrix.Matrix;
-import info.informationsea.dataclustering4j.matrix.TriangleMutableMatrix;
+import info.informationsea.dataclustering4j.matrix.*;
 
 public class DistanceMatrixMaker {
     private DistanceMatrixMaker(){}
 
     public static <T> DistanceMatrix matrixDistance(Matrix<T> matrix, Distance distance) {
         int nrow = matrix.getSize()[0];
-        DistanceMatrix m = new DistanceMatrix(nrow, 0.0);
+        DistanceMatrix m = new NoLabeledDistanceMatrix(nrow, 0.0);
 
         for (int i = 0; i < nrow; ++i) {
             for (int j = i+1; j < nrow; ++j) {
@@ -37,9 +36,33 @@ public class DistanceMatrixMaker {
         return m;
     }
 
-    public static class DistanceMatrix extends TriangleMutableMatrix<Double> {
+    public static <T, K> LabeledDistanceMatrix<K> matrixDistance(LabeledMatrix<T, K, ?> matrix, Distance distance) {
+        int nrow = matrix.getSize()[0];
+        LabeledDistanceMatrix<K> m = new LabeledDistanceMatrix<K>(nrow, 0.0);
+        m.setKeys(matrix.getRowKeys());
 
-        public DistanceMatrix(int size, Double defaultValue) {
+        for (int i = 0; i < nrow; ++i) {
+            for (int j = i+1; j < nrow; ++j) {
+                m.put(i, j, distance.distance(matrix.getRow(i), matrix.getRow(j)));
+            }
+        }
+
+        return m;
+    }
+
+    public interface DistanceMatrix extends MutableMatrix<Double> {
+
+    }
+
+    public static class NoLabeledDistanceMatrix extends TriangleMutableMatrix<Double> implements DistanceMatrix {
+        public NoLabeledDistanceMatrix(int size, Double defaultValue) {
+            super(size, defaultValue);
+        }
+    }
+
+    public static class LabeledDistanceMatrix<K> extends LabeledTriangleMutableMatrix<Double, K> implements DistanceMatrix {
+
+        public LabeledDistanceMatrix(int size, Double defaultValue) {
             super(size, defaultValue);
         }
     }
