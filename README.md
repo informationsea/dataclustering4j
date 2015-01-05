@@ -5,6 +5,10 @@ dataclustering4j
 
 Hierarchical Data Clustering Tool
 
+Warning
+-------
+API of dataclustering4j is not stable.
+
 License
 -------
 

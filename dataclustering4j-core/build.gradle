@@ -1,6 +1,7 @@
 apply plugin: 'java'
 
 sourceCompatibility = 1.6
+targetCompatibility = 1.6
 // refer http://mike-neck.github.io/blog/2013/06/19/publish-maven-artifact-with-sign-files-1/
 
 apply plugin: 'jacoco'

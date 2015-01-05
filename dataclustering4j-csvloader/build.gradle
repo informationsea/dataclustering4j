@@ -1,9 +1,11 @@
 apply plugin: 'java'
 
 sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 repositories {
     mavenCentral()
@@ -15,21 +17,133 @@ dependencies {
     compile 'net.sf.opencsv:opencsv:2.3'
 }
 
+// zip sources
+task sourceJar(type : Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+    extension = 'jar'
+}
+// zip javadocs
+task javadocJar(type : Jar, dependsOn : javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+    extension = 'jar'
+}
+
+
 task testAndReport(dependsOn: [test, jacocoTestReport]) << {
 
 }
 
 
+ext {
+    pomFile = file("$buildDir/generated-pom.xml")
+}
+
+model {
+    tasks.generatePomFileForMavenJavaPublication {
+        destination = pomFile
+    }
+}
+
+configurations {
+    pom
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourceJar
+    pom pomFile
+}
+
+task signArchives (type : Sign, dependsOn : [jar, sourceJar, javadocJar]) {
+    sign configurations.archives
+}
+
+task signPom (type : Sign) {
+    sign configurations.pom
+}
+
+task preparePublication (dependsOn : [signArchives, signPom])
+
+def getSignatureFiles = {
+    def allFiles = tasks.signArchives.signatureFiles.collect{it}
+    def signedSources = allFiles.find { it.name.contains('-sources') }
+    def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
+    def signedJar = (allFiles - [signedSources, signedJavadoc])[0]
+    return [
+            [archive: signedSources, classifier: 'sources'],
+            [archive: signedJavadoc, classifier: 'javadoc'],
+            [archive: signedJar,     classifier: null]
+    ]
+}
+
 publishing {
     publications {
+        jarSignatures (MavenPublication) {
+            getSignatureFiles().each {signedArchive ->
+                artifact (signedArchive.archive) {
+                    classifier = signedArchive.classifier
+                    extension  = 'jar.asc'
+                }
+            }
+        }
+
         mavenJava(MavenPublication) {
-            from components.java
+            [[task: tasks.jar, classifier: null],
+             [task: tasks.sourceJar, classifier: 'sources'],
+             [task: tasks.javadocJar, classifier: 'javadoc']].each { archive ->
+                artifact (archive.task) {
+                    classifier = archive.classifier
+                    extension = 'jar'
+                }
+            }
+
+            pom.withXml {
+                def node = asNode()
+                node.appendNode('name', 'dataclustering4j-core')
+                node.appendNode('description', 'Core classes of Hierarchical Data Clustering Tool for Java')
+                node.appendNode('url', 'http://dataclustering4j.informationsea.info/')
+                def license = node.appendNode('licenses').appendNode('license')
+                license.appendNode('name', 'GNU General Public License, version 3')
+                license.appendNode('url', 'http://www.gnu.org/licenses/gpl-3.0-standalone.html')
+                def developers = node.appendNode('developers').appendNode('developer')
+                developers.appendNode('name', 'OKAMURA Yasunobu')
+                developers.appendNode('email', 'okamura@informationsea.info')
+                def scm = node.appendNode('scm')
+                scm.appendNode('connection', 'scm:git:https://github.com/informationsea/dataclustering4j/')
+                scm.appendNode('developerConnection', 'scm:git:git@github.com:informationsea/dataclustering4j.git')
+                scm.appendNode('url', 'https://github.com/informationsea/dataclustering4j/')
+                node.appendNode('packaging', 'jar')
+            }
+        }
+
+        if (project.ext.pomFile.exists()) {
+            gpgPom(MavenPublication) {
+                artifact(project.tasks.signPom.signatureFiles.collect { it }[0]) {
+                    classifier = null
+                    extension = 'pom.asc'
+                }
+            }
         }
     }
     repositories {
         maven {
-            // change to point to your repo, e.g. http://my.org/repo
-            url "$buildDir/repo"
+            if (version.contains('-SNAPSHOT')) {
+                url "https://oss.sonatype.org/content/repositories/snapshots"
+            } else {
+                url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            }
+
+            if (project.hasProperty("sonatypeUsername")) {
+                println "Sonatype username: $sonatypeUsername"
+                credentials {
+                    username = sonatypeUsername
+                    password = sonatypePassword
+                }
+            }
+
         }
     }
 }
