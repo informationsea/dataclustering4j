@@ -102,8 +102,8 @@ publishing {
 
             pom.withXml {
                 def node = asNode()
-                node.appendNode('name', 'dataclustering4j-core')
-                node.appendNode('description', 'Core classes of Hierarchical Data Clustering Tool for Java')
+                node.appendNode('name', 'dataclustering4j-csvloader')
+                node.appendNode('description', 'Helper classes to load CSV matrix of Hierarchical Data Clustering Tool for Java')
                 node.appendNode('url', 'http://dataclustering4j.informationsea.info/')
                 def license = node.appendNode('licenses').appendNode('license')
                 license.appendNode('name', 'GNU General Public License, version 3')
