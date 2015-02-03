@@ -1,5 +1,10 @@
+allprojects {
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+}
+
 subprojects {
     group = 'info.informationsea.dataclustering4j'
-    version = "0.0.5"
+    version = "0.0.6-SNAPSHOT"
 }
 
