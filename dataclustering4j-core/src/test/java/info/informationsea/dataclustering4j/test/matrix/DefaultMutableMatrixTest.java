@@ -95,6 +95,38 @@ public class DefaultMutableMatrixTest {
     }
 
     @Test
+    public void testGetColumn() {
+        DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
+        m1.put(3, 0, 1);
+        m1.put(3, 3, 6);
+        m1.put(4, 3, 1);
+
+        Integer[] correct1 = new Integer[]{0, 0, 0, 1, 0};
+        Integer[] correct2 = new Integer[]{0, 0, 0, 6, 1};
+
+        Assert.assertArrayEquals(correct1, m1.getColumn(0));
+        Assert.assertArrayEquals(correct2, m1.getColumn(3));
+    }
+
+    @Test
+    public void testGetColumn2() {
+        DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
+        m1.put(3, 0, 1);
+        m1.put(3, 3, 6);
+        m1.put(4, 3, 1);
+
+        Integer[] correct1 = new Integer[]{0, 0, 0, 1, 0};
+        Integer[] correct2 = new Integer[]{0, 0, 0, 6, 1};
+
+        Integer[] testValues = new Integer[5];
+        m1.getColumn(testValues, 0);
+        Assert.assertArrayEquals(correct1, testValues);
+        m1.getColumn(testValues, 3);
+        Assert.assertArrayEquals(correct2, testValues);
+    }
+
+
+    @Test
     public void testSize() {
         DefaultMutableMatrix<Integer> m1 = new DefaultMutableMatrix<Integer>(5, 6, 0);
         Assert.assertArrayEquals(new int[]{5, 6}, m1.getSize());

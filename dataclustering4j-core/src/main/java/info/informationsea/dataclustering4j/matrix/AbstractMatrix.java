@@ -59,6 +59,12 @@ abstract public class AbstractMatrix<T> implements Matrix<T>{
     }
 
     @Override
+    public T[] getColumn(T[] array, int column) {
+        System.arraycopy(getColumn(column), 0, array, 0, getSize()[0]);
+        return array;
+    }
+
+    @Override
     public <V> V[] aggregateByRow(Aggregate<T, V> aggregate, V[] valueArray) {
         if (valueArray.length != getSize()[0])
             throw new IllegalArgumentException("a length of array should be equal to a number of row of matrix");

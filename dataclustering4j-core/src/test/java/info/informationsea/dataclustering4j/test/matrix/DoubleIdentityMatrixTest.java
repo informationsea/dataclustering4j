@@ -50,9 +50,9 @@ public class DoubleIdentityMatrixTest {
         final int TEST_ROW = 3;
         Double[] result = new Double[SIZE];
         for (int i = 0; i < SIZE; i++) {
-            result[i] = Double.valueOf(0);
+            result[i] = 0.0;
         }
-        result[TEST_ROW] = Double.valueOf(1.0);
+        result[TEST_ROW] = 1.0;
 
         Assert.assertArrayEquals(result, m.getRow(TEST_ROW));
     }
@@ -62,15 +62,43 @@ public class DoubleIdentityMatrixTest {
         final int TEST_ROW = 3;
         Double[] expected = new Double[SIZE];
         for (int i = 0; i < SIZE; i++) {
-            expected[i] = Double.valueOf(0);
+            expected[i] = 0.0;
         }
-        expected[TEST_ROW] = Double.valueOf(1.0);
+        expected[TEST_ROW] = 1.0;
 
         Double[] array = new Double[SIZE];
         m.getRow(array, TEST_ROW);
 
         Assert.assertArrayEquals(expected, array);
     }
+
+    @Test
+    public void testGetColumn() {
+        final int TEST_COLUMN = 3;
+        Double[] result = new Double[SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            result[i] = 0.0;
+        }
+        result[TEST_COLUMN] = 1.0;
+
+        Assert.assertArrayEquals(result, m.getColumn(TEST_COLUMN));
+    }
+
+    @Test
+    public void testGetColumn2() {
+        final int TEST_COLUMN = 3;
+        Double[] expected = new Double[SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            expected[i] = 0.0;
+        }
+        expected[TEST_COLUMN] = 1.0;
+
+        Double[] array = new Double[SIZE];
+        m.getColumn(array, TEST_COLUMN);
+
+        Assert.assertArrayEquals(expected, array);
+    }
+
 
     @Test
     public void testEqual() {

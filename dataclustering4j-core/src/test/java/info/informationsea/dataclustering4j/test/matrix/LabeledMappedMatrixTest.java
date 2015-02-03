@@ -67,4 +67,14 @@ public class LabeledMappedMatrixTest {
         m_matrix.getRow(array, "2");
         Assert.assertArrayEquals(new Integer[]{6, 8}, array);
     }
+
+    @Test
+    public void testGetColumn() {
+        Assert.assertArrayEquals(new Integer[]{2, 6}, m_matrix.getColumn("A"));
+
+        Integer[] array = new Integer[2];
+        m_matrix.getColumn(array, "B");
+        Assert.assertArrayEquals(new Integer[]{4, 8}, array);
+    }
+
 }

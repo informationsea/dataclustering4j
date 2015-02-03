@@ -27,11 +27,13 @@ public class MappedMatrixTest {
         Assert.assertEquals(4, mappedMatrix.get(0, 1), 0);
         Assert.assertEquals(12, mappedMatrix.get(1, 2), 0);
         Assert.assertArrayEquals(new Integer[]{2, 4, 6}, mappedMatrix.getRow(0));
+        Assert.assertArrayEquals(new Integer[]{2, 8}, mappedMatrix.getColumn(0));
 
         Matrix<Integer> transposedMatrix = mappedMatrix.transpose();
 
         Assert.assertArrayEquals(new int[]{3, 2}, transposedMatrix.getSize());
         Assert.assertEquals(4, transposedMatrix.get(1, 0), 0);
         Assert.assertArrayEquals(new Integer[]{2, 8}, transposedMatrix.getRow(0));
+        Assert.assertArrayEquals(new Integer[]{2, 4, 6}, transposedMatrix.getColumn(0));
     }
 }

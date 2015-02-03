@@ -123,6 +123,15 @@ public class DefaultMutableMatrix<T> extends AbstractMatrix<T> implements Mutabl
     }
 
     @Override
+    public Object[] getColumn(int column) {
+        Object[] columnArray = new Object[m_matrix.length];
+        for (int i = 0; i < m_matrix.length; i++) {
+            columnArray[i] = m_matrix[i][column];
+        }
+        return columnArray;
+    }
+
+    @Override
     public Matrix<T> transpose() {
         DefaultMutableMatrix<T> newmatrix = new DefaultMutableMatrix<T>(m_ncol, m_nrow, null);
         for (int i = 0; i < m_nrow; ++i) {

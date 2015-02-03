@@ -18,6 +18,8 @@
 
 package info.informationsea.dataclustering4j.matrix;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,22 +93,32 @@ abstract public class AbstractMutableLabeledMatrix<T, R, C> extends AbstractMatr
     }
 
     @Override
-    public T[] getRow(T[] array, R row) {
+    public Object[] getColumn(@NonNull C column) {
+        return getColumn(m_columnKeyMap.get(column));
+    }
+
+    @Override
+    public T[] getColumn(@NonNull T[] array, @NonNull C column) {
+        return getColumn(array, m_columnKeyMap.get(column));
+    }
+
+    @Override
+    public T[] getRow(@NonNull T[] array, @NonNull R row) {
         return getRow(array, m_rowKeyMap.get(row));
     }
 
     @Override
-    public Object[] getRow(R row) {
+    public Object[] getRow(@NonNull R row) {
         return getRow(m_rowKeyMap.get(row));
     }
 
     @Override
-    public T get(R row, C column) {
+    public T get(@NonNull R row, @NonNull C column) {
         return get(m_rowKeyMap.get(row), m_columnKeyMap.get(column));
     }
 
     @Override
-    public void put(R row, C column, T value) {
+    public void put(@NonNull R row, @NonNull C column, T value) {
         put(m_rowKeyMap.get(row), m_columnKeyMap.get(column), value);
     }
 
@@ -146,6 +158,11 @@ abstract public class AbstractMutableLabeledMatrix<T, R, C> extends AbstractMatr
         @Override
         public Object[] getRow(int row) {
             return m_parent.getRow(row);
+        }
+
+        @Override
+        public Object[] getColumn(int column) {
+            return m_parent.getColumn(column);
         }
 
         @Override

@@ -49,6 +49,11 @@ public class DoubleIdentityMatrix extends AbstractMatrix<Double> implements Matr
     }
 
     @Override
+    public Object[] getColumn(int column) {
+        return getRow(column);
+    }
+
+    @Override
     public Matrix<Double> transpose() {
         return new DoubleIdentityMatrix(m_size);
     }

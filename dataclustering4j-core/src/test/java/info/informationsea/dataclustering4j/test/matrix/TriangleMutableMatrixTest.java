@@ -89,16 +89,15 @@ public class TriangleMutableMatrixTest {
     }
 
     @Test
-    public void testGetRow() {
+    public void testGetRowAndColumn() {
         TriangleMutableMatrix<Integer> tmm1 = new TriangleMutableMatrix<Integer>(4, 1);
         tmm1.put(1, 1, 10);
         tmm1.put(1, 2, 3);
         tmm1.put(3, 1, 9);
 
         Integer[] correctRow = new Integer[]{1, 10, 3, 9};
-        //printArrayHelper(tmm1.getRow(2));
-        //printArrayHelper(tmm1.getRow(1));
         Assert.assertArrayEquals(correctRow, tmm1.getRow(1));
+        Assert.assertArrayEquals(correctRow, tmm1.getColumn(1));
     }
 
     public void printArrayHelper(Object[] array) {

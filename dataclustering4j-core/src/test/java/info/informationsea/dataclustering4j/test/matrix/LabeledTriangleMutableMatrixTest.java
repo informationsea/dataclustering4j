@@ -94,4 +94,19 @@ public class LabeledTriangleMutableMatrixTest {
         tmm.getRow(array, "A");
         Assert.assertArrayEquals(new Integer[]{10, 1, 9, 1}, array);
     }
+
+    @Test
+    public void testGetColumn() {
+        LabeledTriangleMutableMatrix<Integer, String> tmm = new LabeledTriangleMutableMatrix<Integer, String>(4, 1);
+        tmm.setKeys(Arrays.asList("A", "B", "C", "D"));
+        tmm.put("A", "A", 10);
+        tmm.put("C", "D", 3);
+        tmm.put("A", "C", 9);
+        Assert.assertArrayEquals(new Integer[]{10, 1, 9, 1}, tmm.getColumn("A"));
+
+        Integer[] array = new Integer[4];
+        tmm.getColumn(array, "A");
+        Assert.assertArrayEquals(new Integer[]{10, 1, 9, 1}, array);
+    }
+
 }

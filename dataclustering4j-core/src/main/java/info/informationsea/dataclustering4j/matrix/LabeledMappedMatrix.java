@@ -39,6 +39,25 @@ public class LabeledMappedMatrix<T, R, C> extends MappedMatrix<T> implements Lab
     }
 
     @Override
+    public Object[] getColumn(C column) {
+        Object[] columnArray = m_parent.getColumn(column);
+        Object[] newArray = new Object[columnArray.length];
+        for (int i = 0; i < columnArray.length; i++) {
+            newArray[i] = m_map.map((T) columnArray[i]);
+        }
+        return newArray;
+    }
+
+    @Override
+    public T[] getColumn(T[] array, C column) {
+        Object[] columnArray = m_parent.getColumn(column);
+        for (int i = 0; i < columnArray.length; i++) {
+            array[i] = m_map.map((T) columnArray[i]);
+        }
+        return array;
+    }
+
+    @Override
     public Object[] getRow(R row) {
         Object[] rowArray = m_parent.getRow(row);
         Object[] newArray = new Object[rowArray.length];

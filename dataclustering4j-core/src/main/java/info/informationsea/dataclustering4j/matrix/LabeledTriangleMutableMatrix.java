@@ -63,6 +63,16 @@ public class LabeledTriangleMutableMatrix<T, K> extends TriangleMutableMatrix<T>
     }
 
     @Override
+    public Object[] getColumn(K column) {
+        return m_proxy.getColumn(column);
+    }
+
+    @Override
+    public T[] getColumn(T[] array, K column) {
+        return m_proxy.getColumn(array, column);
+    }
+
+    @Override
     public Object[] getRow(K row) {
         return m_proxy.getRow(row);
     }

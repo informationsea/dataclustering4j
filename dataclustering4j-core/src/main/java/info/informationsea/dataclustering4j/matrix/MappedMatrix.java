@@ -49,6 +49,16 @@ public class MappedMatrix<T> extends AbstractMatrix<T> {
     }
 
     @Override
+    public Object[] getColumn(int column) {
+        Object[] columnArray = m_parent.getColumn(column);
+        Object[] newArray = new Object[columnArray.length];
+        for (int i = 0; i < columnArray.length; i++) {
+            newArray[i] = m_map.map((T) columnArray[i]);
+        }
+        return newArray;
+    }
+
+    @Override
     public Matrix<T> transpose() {
         return new MappedMatrix<T>(m_parent.transpose(), m_map);
     }

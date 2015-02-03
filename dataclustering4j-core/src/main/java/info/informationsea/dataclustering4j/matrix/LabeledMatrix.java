@@ -52,6 +52,21 @@ public interface LabeledMatrix<T, R, C> extends MutableMatrix<T> {
     public List<C> getColumnKeys();
 
     /**
+     * Get array of matrix column values
+     * @param column column index
+     * @return a object array of values in column
+     */
+    public Object[] getColumn(C column);
+
+    /**
+     * Get array of matrix column values in {@code T} array
+     * @param array column index
+     * @param column a {@code T} array which length is the number of column
+     * @return a {@code T} array of values in column
+     */
+    public T[] getColumn(T[] array, C column);
+
+    /**
      * Get array of matrix row values
      * @param row row index
      * @return a object array of values in row
@@ -65,6 +80,7 @@ public interface LabeledMatrix<T, R, C> extends MutableMatrix<T> {
      * @return a {@code T} array of values in row
      */
     public T[] getRow(T[] array, R row);
+
 
     /**
      * get a value corresponding to {@code row} and {@code column}

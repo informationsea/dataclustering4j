@@ -135,4 +135,14 @@ public class DefaultLabeledMutableMatrixTest {
         Assert.assertArrayEquals(new Integer[]{5, 6}, array);
     }
 
+    @Test
+    public void testGetColumn() {
+        Assert.assertArrayEquals(new Integer[]{1, 3, 5}, m1.getColumn("A"));
+        Assert.assertArrayEquals(new Integer[]{2, 4, 6}, m1.getColumn("B"));
+
+        Integer[] array = new Integer[3];
+        m1.getColumn(array, "A");
+        Assert.assertArrayEquals(new Integer[]{1, 3, 5}, array);
+    }
+
 }

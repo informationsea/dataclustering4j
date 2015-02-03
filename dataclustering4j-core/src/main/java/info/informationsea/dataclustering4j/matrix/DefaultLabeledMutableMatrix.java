@@ -74,6 +74,16 @@ public class DefaultLabeledMutableMatrix<T, R, C> extends DefaultMutableMatrix<T
     }
 
     @Override
+    public Object[] getColumn(C column) {
+        return m_proxy.getColumn(column);
+    }
+
+    @Override
+    public T[] getColumn(T[] array, C column) {
+        return m_proxy.getColumn(array, column);
+    }
+
+    @Override
     public Object[] getRow(R row) {
         return m_proxy.getRow(row);
     }

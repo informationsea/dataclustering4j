@@ -79,6 +79,11 @@ public class TriangleMutableMatrix<T> extends AbstractMatrix<T> implements Mutab
     }
 
     @Override
+    public Object[] getColumn(int column) {
+        return getRow(column);
+    }
+
+    @Override
     public Matrix<T> transpose() {
         return this;
     }

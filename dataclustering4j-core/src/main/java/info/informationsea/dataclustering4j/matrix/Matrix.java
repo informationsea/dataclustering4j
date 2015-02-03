@@ -55,6 +55,21 @@ public interface Matrix<T> {
     public T[] getRow(T[] array, int row);
 
     /**
+     * Get array of matrix column values
+     * @param column row index
+     * @return a object array of values in column
+     */
+    public Object[] getColumn(int column);
+
+    /**
+     * Get array of matrix column values in {@code T} array
+     * @param array row index
+     * @param column a {@code T} array which length is the number of row
+     * @return a {@code T} array of values in column
+     */
+    public T[] getColumn(T[] array, int column);
+
+    /**
      * Transpose matrix
      * @return a transposed matrix
      */
