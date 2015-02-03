@@ -21,16 +21,8 @@ package info.informationsea.dataclustering4j.matrix.aggregate;
 import java.util.Arrays;
 import java.util.List;
 
-public class Median<T extends Number> implements Aggregate<T, Double> {
-    @Override
-    public Double process(List<T> array) {
-        Number[] numbers = new Number[array.size()];
-        array.toArray(numbers);
-        Arrays.sort(numbers);
-        if (numbers.length % 2 == 0) {
-            return (numbers[(array.size()/2)].doubleValue() + numbers[array.size()/2-1].doubleValue())/2;
-        } else {
-            return numbers[array.size()/2].doubleValue();
-        }
+public class Median<T extends Number> extends Quantile<T> {
+    public Median() {
+        super(0.5);
     }
 }
