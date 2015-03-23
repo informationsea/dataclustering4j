@@ -4,7 +4,7 @@
 *.iml
 .idea
 .gradle
-/build
+build
 .project
 .settings
 .classpath
