@@ -17,7 +17,12 @@ GNU General Public License version 3 or later
 Copyrights
 ----------
 
-* Copyright (C) 2014 OKAMURA Yasunobu
+* Copyright (C) 2014-2015 OKAMURA Yasunobu
+
+Documents
+---------
+
+* [javadoc](http://dataclustering4j.informationsea.info)
 
 How to use?
 -----------
