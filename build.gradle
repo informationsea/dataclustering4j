@@ -1,10 +1,54 @@
-allprojects {
-    apply plugin: 'eclipse'
-    apply plugin: 'idea'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.projectlombok:lombok:1.14.8'
+    }
 }
 
-subprojects {
+apply plugin: 'java'
+
+task delombok << {
+    def delombokInstance = new lombok.delombok.Delombok()
+    rootProject.subprojects.each {
+        delombokInstance.addDirectory(file(it.projectDir.getAbsolutePath() + '/src/main/java'))
+    }
+
+    delombokInstance.setOutput(file("$buildDir/delomboked"))
+    delombokInstance.delombok()
+}
+
+javadoc.dependsOn(delombok)
+
+javadoc {
+    options.locale = 'en_US'
+    source "$buildDir/delomboked"
+}
+
+task javadocZip (type: Zip, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from "$buildDir/docs/javadoc"
+}
+
+allprojects {
+    //apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
     group = 'info.informationsea.dataclustering4j'
     version = "0.0.6-SNAPSHOT"
-}
 
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    repositories {
+        mavenCentral()
+    }
+
+    javadoc {
+        options.locale = 'en_US'
+    }
+
+    task testAndReport(dependsOn: [test, jacocoTestReport]) << {}
+}

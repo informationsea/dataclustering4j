@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package info.informationsea.dataclustering4j.largematrix;
+package info.informationsea.dataclustering4j.matrix.largematrix;
 
 import info.informationsea.dataclustering4j.matrix.AbstractMatrix;
 import info.informationsea.dataclustering4j.matrix.AbstractMutableLabeledMatrix;

@@ -1,22 +1,21 @@
-apply plugin: 'java'
-
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
 // refer http://mike-neck.github.io/blog/2013/06/19/publish-maven-artifact-with-sign-files-1/
 
-apply plugin: 'jacoco'
 apply plugin: 'signing'
 apply plugin: 'maven-publish'
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'org.projectlombok:lombok:1.16.2'
+    compile 'org.projectlombok:lombok:1.14.8'
 }
 
+ext {
+    packageName = "Dataclustering4j-core"
+    description = 'Core classes of Hierarchical Data Clustering Tool for Java'
+}
+
+apply from: "../gradle/publishcentral.gradle"
+
+/*
 // zip sources
 task sourceJar(type : Jar) {
     from sourceSets.main.allJava
@@ -146,3 +145,4 @@ publishing {
     }
 }
 
+*/

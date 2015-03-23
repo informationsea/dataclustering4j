@@ -1,23 +1,10 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'maven-publish'
-
-sourceCompatibility = 1.6
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile project(":dataclustering4j-core")
     testCompile project(":dataclustering4j-csvloader")
 }
 
-task testAndReport(dependsOn: [test, jacocoTestReport]) << {
-
-}
-
+/*
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -31,3 +18,4 @@ publishing {
         }
     }
 }
+*/

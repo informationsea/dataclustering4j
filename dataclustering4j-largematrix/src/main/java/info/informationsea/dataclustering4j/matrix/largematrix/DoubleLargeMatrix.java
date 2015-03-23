@@ -16,39 +16,44 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package info.informationsea.dataclustering4j.largematrix;
+package info.informationsea.dataclustering4j.matrix.largematrix;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
+import java.nio.DoubleBuffer;
 import java.nio.channels.FileChannel;
 
-public class IntegerLargeMatrix<R, C> extends AbstractLargeMatrix<Integer, R, C> {
+/**
+ * dataclustering4j
+ * Copyright (C) 2015 OKAMURA Yasunobu
+ * Created on 15/03/13.
+ */
+public class DoubleLargeMatrix<R, C> extends AbstractLargeMatrix<Double, R, C> {
 
-    private IntBuffer intBuffer;
+    private DoubleBuffer doubleBuffer;
 
-    public IntegerLargeMatrix(int ncol, int nrow, int defaultValue) throws IOException {
+    public DoubleLargeMatrix(int ncol, int nrow, double defaultValue) throws IOException {
         super(ncol, nrow);
-        intBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, getItemSize()*ncol*nrow).asIntBuffer();
+        doubleBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, getItemSize()*ncol*nrow).asDoubleBuffer();
         for (int i = 0; i < ncol*nrow; i++) {
-            intBuffer.put(defaultValue);
+            doubleBuffer.put(defaultValue);
         }
     }
 
     @Override
-    protected int getItemSize() {
+    public void put(int row, int col, Double value) {
+        doubleBuffer.put(calculateArrayPosition(col, row), value);
+    }
+
+    @Override
+    public Double get(int row, int col) {
+        return doubleBuffer.get(calculateArrayPosition(col, row));
+    }
+
+    @Override
+    public int getItemSize() {
         ByteBuffer buffer = ByteBuffer.allocate(32);
-        buffer.putInt(1);
+        buffer.putDouble(1);
         return buffer.position();
-    }
-
-    @Override
-    public void put(int row, int col, Integer value) {
-        intBuffer.put(calculateArrayPosition(col, row), value);
-    }
-
-    @Override
-    public Integer get(int row, int col) {
-        return intBuffer.get(calculateArrayPosition(col, row));
     }
 }

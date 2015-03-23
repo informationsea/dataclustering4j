@@ -1,0 +1,152 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'java'
+
+// zip sources
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+    extension = 'jar'
+}
+
+// zip javadocs
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+    extension = 'jar'
+}
+
+ext {
+    pomFile = file("$buildDir/generated-pom.xml")
+}
+
+model {
+    tasks.generatePomFileForMavenJavaPublication {
+        destination = pomFile
+    }
+}
+
+configurations {
+    pom
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourceJar
+    pom pomFile
+}
+
+task signArchives(type: Sign, dependsOn: [jar, sourceJar, javadocJar]) {
+    sign configurations.archives
+}
+
+task signPom(type: Sign) {
+    sign configurations.pom
+}
+
+task preparePublication(dependsOn: ["generatePomFileForMavenJavaPublication", signArchives, signPom])
+
+def getSignatureFiles = {
+    def allFiles = tasks.signArchives.signatureFiles.collect { it }
+    def signedSources = allFiles.find { it.name.contains('-sources') }
+    def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
+    def signedJar = (allFiles - [signedSources, signedJavadoc])[0]
+    return [
+            [archive: signedSources, classifier: 'sources'],
+            [archive: signedJavadoc, classifier: 'javadoc'],
+            [archive: signedJar, classifier: null]
+    ]
+}
+
+
+publishing {
+    publications {
+        jarSignatures(MavenPublication) {
+            getSignatureFiles().each { signedArchive ->
+                artifact(signedArchive.archive) {
+                    classifier = signedArchive.classifier
+                    extension = 'jar.asc'
+                }
+            }
+        }
+
+        mavenJava(MavenPublication) {
+            [[task: tasks.jar, classifier: null],
+             [task: tasks.sourceJar, classifier: 'sources'],
+             [task: tasks.javadocJar, classifier: 'javadoc']].each { archive ->
+                artifact(archive.task) {
+                    classifier = archive.classifier
+                    extension = 'jar'
+                }
+            }
+
+            pom.withXml {
+                def node = asNode()
+                node.children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+                    name project.ext.packageName
+                    description project.ext.description
+                    url 'https://github.com/informationsea/dataclustering4j'
+
+                    licenses {
+                        license {
+                            name 'GNU General Public License, version 3'
+                            url 'http://www.gnu.org/licenses/gpl-3.0-standalone.html'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            name 'OKAMURA Yasunobu'
+                            email 'okamura@informationsea.info'
+                        }
+                    }
+
+                    scm {
+                        connection 'scm:git:https://github.com/informationsea/dataclustering4j'
+                        developerConnection 'scm:git:git@github.com:informationsea/dataclustering4j.git'
+                        url 'https://github.com/informationsea/dataclustering4j/'
+                    }
+                }
+
+                def dependencies = node.appendNode('dependencies')
+                project.configurations.compile.dependencies.each { dep ->
+                    if (dep.name == 'lombok') return
+                    def dependency = dependencies.appendNode('dependency')
+                    dependency.appendNode('groupId', dep.group)
+                    dependency.appendNode('artifactId', dep.name)
+                    dependency.appendNode('version', dep.version)
+                }
+            }
+        }
+
+        if (project.ext.pomFile.exists()) {
+            gpgPom(MavenPublication) {
+                artifact(project.tasks.signPom.signatureFiles.collect { it }[0]) {
+                    classifier = null
+                    extension = 'pom.asc'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            if (version.contains('-SNAPSHOT')) {
+                //url "https://oss.sonatype.org/content/repositories/snapshots"
+                "$buildDir/repo"
+            } else {
+                url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            }
+
+            if (project.hasProperty("sonatypeUsername")) {
+                println "Sonatype username: $sonatypeUsername"
+                credentials {
+                    username = sonatypeUsername
+                    password = sonatypePassword
+                }
+            }
+
+        }
+    }
+}
