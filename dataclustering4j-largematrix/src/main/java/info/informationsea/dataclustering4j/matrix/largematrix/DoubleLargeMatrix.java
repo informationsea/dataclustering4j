@@ -23,11 +23,6 @@ import java.nio.ByteBuffer;
 import java.nio.DoubleBuffer;
 import java.nio.channels.FileChannel;
 
-/**
- * dataclustering4j
- * Copyright (C) 2015 OKAMURA Yasunobu
- * Created on 15/03/13.
- */
 public class DoubleLargeMatrix<R, C> extends AbstractLargeMatrix<Double, R, C> {
 
     private DoubleBuffer doubleBuffer;

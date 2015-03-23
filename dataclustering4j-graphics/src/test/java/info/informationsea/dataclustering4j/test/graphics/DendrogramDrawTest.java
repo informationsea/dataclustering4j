@@ -48,10 +48,7 @@ public class DendrogramDrawTest {
         new DendrogramDraw(image).setTitle("TEST Dendrogram").draw(node);
 
         if (System.getProperty("user.home") == null) return;
-        File homeDir = new File(System.getProperty("user.home"));
-        File desktopDir = new File(homeDir, "Desktop");
-        if (!desktopDir.isDirectory()) return; // do not write out if desktop is not exists
-
-        ImageIO.write(image, "png", new File(desktopDir, "dendrogram.png"));
+        File buildDir = new File(System.getProperty("user.dir"), "build");
+        ImageIO.write(image, "png", new File(buildDir, "dendrogram.png"));
     }
 }

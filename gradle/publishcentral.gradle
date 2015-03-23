@@ -134,7 +134,7 @@ publishing {
         maven {
             if (version.contains('-SNAPSHOT')) {
                 //url "https://oss.sonatype.org/content/repositories/snapshots"
-                "$buildDir/repo"
+                url new File(rootProject.buildDir, "/repo").toURI().toURL()
             } else {
                 url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             }
